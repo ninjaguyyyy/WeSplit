@@ -58,20 +58,19 @@
     <Compile Include="Screens\DetailTripScreen.xaml.cs">
       <DependentUpon>DetailTripScreen.xaml</DependentUpon>
     </Compile>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Constants\Color.cs" />
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
+    <Compile Include="Screens\ListTripScreen.xaml.cs">
+      <DependentUpon>ListTripScreen.xaml</DependentUpon>
     </Compile>
     <Page Include="Screens\DetailTripScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Screens\ListTripScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -106,6 +105,7 @@
     <Resource Include="Assets\Fonts\Roboto-Regular.ttf" />
     <Resource Include="Assets\Fonts\Roboto-Thin.ttf" />
     <Resource Include="Assets\Fonts\Roboto-ThinItalic.ttf" />
+    <None Include="Data\data.json" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -138,6 +138,18 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Images\member_bg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\bell.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\winner-runner-arriving-to-end-line.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\tourist.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\airplane-around-earth.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

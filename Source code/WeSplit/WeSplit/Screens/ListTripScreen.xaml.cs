@@ -10,22 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WeSplit
+namespace WeSplit.Screens
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for ListTripScreen.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ListTripScreen : Window
     {
-        public MainWindow()
+        public ListTripScreen()
         {
             InitializeComponent();
-            
         }
-
 
         private void ListViewItem_MouseEnter(object sender, MouseEventArgs e)
         {
@@ -65,6 +62,4 @@ namespace WeSplit
             Close();
         }
     }
-
-    
 }
