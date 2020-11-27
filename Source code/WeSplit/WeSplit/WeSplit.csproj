@@ -55,6 +55,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Screens\AddTripScreen.xaml.cs">
+      <DependentUpon>AddTripScreen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Screens\DetailTripScreen.xaml.cs">
       <DependentUpon>DetailTripScreen.xaml</DependentUpon>
     </Compile>
@@ -66,6 +69,10 @@
     <Compile Include="Screens\ListTripScreen.xaml.cs">
       <DependentUpon>ListTripScreen.xaml</DependentUpon>
     </Compile>
+    <Page Include="Screens\AddTripScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Screens\DetailTripScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -115,25 +122,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Images\home.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Images\list.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Images\add_icon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Images\settings.png" />
-    <Resource Include="Assets\Images\info.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Images\power-button-off.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Images\power-button-off-black.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Assets\Images\temp\960x0.jpg" />
   </ItemGroup>
   <ItemGroup>
@@ -150,6 +138,55 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Images\airplane-around-earth.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\home_bl.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\list_bl.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\list_active.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\home_active.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\add_active.png" />
+    <Resource Include="Assets\Images\add_bl.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\settings_active.png" />
+    <Resource Include="Assets\Images\settings_bl.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\inf_active.png" />
+    <Resource Include="Assets\Images\inf_bl.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\power-button_red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\power-button_bl.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\bg_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\add-friend.png" />
+    <Resource Include="Assets\Images\add-friend_blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\man.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\woman.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\telephone.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\monney.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

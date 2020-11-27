@@ -10,5 +10,6 @@ namespace WeSplit.Constants
     {
         public static readonly string primary = "#e37b58";
         public static readonly string secondary = "#2C9AFF";
+        public static readonly string secondary_bg = "#EBF4F6";
     }
 }

@@ -14,7 +14,7 @@
     <Window.Resources>
         <!--for toggle button-->
         <ImageBrush x:Key="tb_mouse_over"
-                    ImageSource="../Assets/Images/list.png"/>
+                    ImageSource="../Assets/Images/list_active.png"/>
 
         <Style x:Key="font_style" TargetType="TextBlock">
 
@@ -28,7 +28,7 @@
                     Value="Left"/>
 
             <Setter Property="Foreground"
-                    Value="White"/>
+                    Value="Black"/>
 
             <Setter Property="FontSize"
                     Value="20"/>
@@ -107,7 +107,7 @@
 
         </Style>
 
-        <ImageBrush x:Key="CloseBtn_MouseOver" ImageSource="../Assets/Images/power-button-off-black.png"/>
+        <ImageBrush x:Key="CloseBtn_MouseOver" ImageSource="../Assets/Images/power-button_bl.png"/>
 
         <Style x:Key="Close_btn" TargetType="{x:Type Button}">
 
@@ -185,7 +185,7 @@
 
                         <Button.Background>
 
-                            <ImageBrush ImageSource="../Assets/Images/power-button-off.png"/>
+                            <ImageBrush ImageSource="../Assets/Images/power-button_red.png"/>
 
                         </Button.Background>
 
@@ -321,13 +321,13 @@
             <Grid x:Name="navPanel"
                       HorizontalAlignment="Left"
                       Width="65"
-                      Background="#e37b58">
+                      Background="#EBF4F6">
                 <StackPanel>
                     <Grid Height="90">
                         <TextBlock  
                                         Margin="73,0,0,0"
                                         Text="M E N U"
-                                        Foreground="White"
+                                        Foreground="Black"
                                         FontSize="22"
                                         Background="Transparent"
                                         HorizontalAlignment="Left"
@@ -358,7 +358,7 @@
                                           Checked="menuToggleButton_Checked"
                                           Style="{StaticResource tb_style}">
                             <ToggleButton.Background>
-                                <ImageBrush ImageSource="../Assets/Images/list.png" Stretch="None" />
+                                <ImageBrush ImageSource="../Assets/Images/list_bl.png" Stretch="None" />
                             </ToggleButton.Background>
 
                             <ToggleButton.Triggers>
@@ -424,7 +424,7 @@
                             <StackPanel Orientation="Horizontal"
                                             Width="230">
 
-                                <Image Source="../Assets/Images/home.png"
+                                <Image Source="../Assets/Images/home_active.png"
                                            Stretch="None"
                                            Margin="12,0,0,0"/>
 
@@ -455,7 +455,7 @@
                             <StackPanel Orientation="Horizontal"
                                             Width="230">
 
-                                <Image Source="../Assets/Images/add_icon.png"
+                                <Image Source="../Assets/Images/add_bl.png"
                                            Stretch="None"
                                            Margin="12,0,0,0"/>
 
@@ -486,7 +486,7 @@
                             <StackPanel Orientation="Horizontal"
                                             Width="230">
 
-                                <Image Source="../Assets/Images/settings.png"
+                                <Image Source="../Assets/Images/settings_bl.png"
                                            Stretch="None"
                                            Margin="12,0,0,0"/>
 
@@ -517,7 +517,7 @@
                             <StackPanel Orientation="Horizontal"
                                             Width="230">
 
-                                <Image Source="../Assets/Images/info.png"
+                                <Image Source="../Assets/Images/inf_bl.png"
                                            Stretch="None"
                                            Margin="12,0,0,0"/>
 
@@ -578,11 +578,9 @@
 
                                                     <Setter Property="Background"
                                                                 TargetName="Bd"
-                                                                Value="#404D5B"/>
+                                                                Value="#A7E5FC"/>
+                                                    <Setter Property="Cursor" Value="Hand" />
 
-                                                    <Setter Property="BorderBrush"
-                                                                TargetName="Bd"
-                                                                Value="#404D5B"/>
 
                                                 </MultiTrigger>
 
