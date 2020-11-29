@@ -1,0 +1,47 @@
+﻿[
+  {
+    "id": "t1",
+    "name": "Xe đạp",
+    "image_name": "bike.png"
+  },
+  {
+    "id": "t2",
+    "name": "Ô tô",
+    "image_name": "car.png"
+  },
+  {
+    "id": "t3",
+    "name": "Xe máy",
+    "image_name": "motobike.png"
+  },
+  {
+    "id": "t4",
+    "name": "Tàu hỏa",
+    "image_name": "train.png"
+  },
+  {
+    "id": "t5",
+    "name": "Tàu thủy",
+    "image_name": "ship.png"
+  },
+  {
+    "id": "t6",
+    "name": "Đi bộ",
+    "image_name": "foot.png"
+  },
+  {
+    "id": "t7",
+    "name": "Xe khách",
+    "image_name": "coach.png"
+  },
+  {
+    "id": "t8",
+    "name": "Taxi",
+    "image_name": "taxi.png"
+  },
+  {
+    "id": "t9",
+    "name": "Máy bay",
+    "image_name": "plane.png"
+  }
+]

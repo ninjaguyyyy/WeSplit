@@ -1,0 +1,12 @@
+﻿[
+  {
+    "id": "ty1",
+    "name": "Du lịch",
+    "image_name": "pyramids.png"
+  },
+  {
+    "id": "ty2",
+    "name": "Công việc",
+    "image_name": "shovel.png"
+  }
+]

@@ -1,0 +1,67 @@
+﻿[
+  {
+    "id":  "tr1",
+    "name": "Hướng về miền trung",
+    "start": "11/28/2020",
+    "end": "11/30/2020",
+    "transport": "t1",
+    "type": "ty1",
+    "image_main": "default_trip.jpg",
+    "expenses": [
+
+    ],
+    "members": []
+  },
+  {
+    "id": "tr2",
+    "name": "Du lịch Tết",
+    "start": "1/19/2021",
+    "end": "2/11/2021",
+    "transport": "t1",
+    "type": "ty2",
+    "image_main": "default_trip.jpg",
+    "expenses": [
+
+    ],
+    "members": []
+  },
+  {
+    "id": "tr3",
+    "name": "Hè 2020",
+    "start": "7/11/2020",
+    "end": "9/11/2021",
+    "transport": "t1",
+    "type": "ty2",
+    "image_main": "default_trip.jpg",
+    "expenses": [
+
+    ],
+    "members": []
+  },
+  {
+    "id": "tr4",
+    "name": "Phượt Hà Giang",
+    "start": "7/12/2015",
+    "end": "8/11/2015",
+    "transport": "t1",
+    "type": "ty2",
+    "image_main": "default_trip.jpg",
+    "expenses": [
+
+    ],
+    "members": []
+  },
+  {
+    "id": "tr5",
+    "name": "Cuộc đua kỳ thú - 12C1",
+    "start": "1/11/2017",
+    "end": "1/30/2017",
+    "transport": "t1",
+    "type": "ty2",
+    "image_main": "default_trip.jpg",
+    "expenses": [
+
+    ],
+    "members": []
+  }
+]
