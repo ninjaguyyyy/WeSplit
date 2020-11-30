@@ -242,7 +242,8 @@
                                 </StackPanel>
                                 <StackPanel Background="Black" Grid.Column="1"></StackPanel>
                                 <StackPanel Grid.Column="2">
-                                    <Image Source="../Assets/Images/Temp/960x0.jpg" Margin="10, 5, 0, 5"/>
+                                    <Image Source="../Assets/Images/Systems/960x0.jpg" 
+                                           Margin="10, 5, 0, 5"/>
                                 </StackPanel>
                             </Grid>
                         </DockPanel>
@@ -306,9 +307,26 @@
                             </Border>
 
                         </StackPanel>
-                        <StackPanel Background="Pink" 
-                                    Grid.Column="1" 
-                                    Margin="5, 0, 0, 0"></StackPanel>
+                        <Grid Background="#F5F5FC" 
+                              Grid.Column="1"
+                              Margin="5, 0, 0, 0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="2*" />
+                                <RowDefinition Height="3*" />
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0"
+                                  Margin="20"
+                                  Background="White">
+                                
+                            </Grid>
+                            
+                            <Grid Grid.Row="1"
+                                  Background="White"
+                                  Margin="20, 20, 20, 20">
+
+                            </Grid>
+                        </Grid>
 
                     </Grid>
                     <StackPanel Background="Black" Grid.Column="1" />

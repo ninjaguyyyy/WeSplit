@@ -11,7 +11,7 @@ namespace WeSplit.DAO
 {
     class TripDAO
     {
-        public static List<Trip> GetTrips()
+        public static List<Trip> GetTrips(int perPage, int pageCurrent)
         {
             var result = new List<Trip>();
 
@@ -21,6 +21,10 @@ namespace WeSplit.DAO
             try
             {
                 JArray trips = JArray.Parse(json);
+
+                int skipValue = pageCurrent == 1 ? 0 : (pageCurrent - 1) * perPage;
+                trips = new JArray(trips.Skip(skipValue).Take(perPage));
+
                 foreach (var trip in trips)
                 {
                     Trip tripObject = new Trip();
@@ -32,6 +36,26 @@ namespace WeSplit.DAO
                 }
             }
             catch(Exception)
+            {
+                throw;
+            }
+
+            return result;
+        }
+
+        public static int CountTrips()
+        {
+            var result = 0;
+
+            string jsonFilePath = "./Data/trips.json";
+            var json = File.ReadAllText(jsonFilePath);
+
+            try
+            {
+                JArray trips = JArray.Parse(json);
+                result = trips.Count();
+            }
+            catch (Exception)
             {
                 throw;
             }

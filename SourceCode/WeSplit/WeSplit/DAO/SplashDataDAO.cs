@@ -21,6 +21,7 @@ namespace WeSplit.DAO
             try
             {
                 JArray data = JArray.Parse(json);
+
                 foreach (var item in data)
                 {
                     SplashData dataObject = new SplashData();

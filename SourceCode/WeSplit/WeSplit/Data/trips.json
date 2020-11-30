@@ -63,5 +63,84 @@
 
     ],
     "members": []
+  },
+  {
+    "id": "tr6",
+    "name": "Cuộc đua kỳ thú - 9/7",
+    "start": "6/20/2014",
+    "end": "7/30/2014",
+    "transport": "t1",
+    "type": "ty2",
+    "image_main": "default_trip.jpg",
+    "expenses": [
+
+    ],
+    "members": []
+  },
+  {
+    "id": "tr7",
+    "name": "Tết 2019",
+    "start": "1/11/2020",
+    "end": "3/30/2020",
+    "transport": "t1",
+    "type": "ty2",
+    "image_main": "default_trip.jpg",
+    "expenses": [
+
+    ],
+    "members": []
+  },
+  {
+    "id": "tr8",
+    "name": "Du lịch Nhật Bản",
+    "start": "1/1/2022",
+    "end": "4/30/2022",
+    "transport": "t1",
+    "type": "ty2",
+    "image_main": "default_trip.jpg",
+    "expenses": [
+
+    ],
+    "members": []
+  },
+  {
+    "id": "tr8",
+    "name": "Công tác tại Hạ Long",
+    "start": "6/1/2025",
+    "end": "6/30/2025",
+    "transport": "t1",
+    "type": "ty2",
+    "image_main": "default_trip.jpg",
+    "expenses": [
+
+    ],
+    "members": []
+  },
+  {
+    "id": "tr9",
+    "name": "Thiện nguyện Quảng Ngãi",
+    "start": "6/1/2016",
+    "end": "6/30/2016",
+    "transport": "t1",
+    "type": "ty2",
+    "image_main": "default_trip.jpg",
+    "expenses": [
+
+    ],
+    "members": []
+  },
+  {
+    "id": "tr10",
+    "name": "Mùa hè xanh 2020",
+    "start": "6/1/2020",
+    "end": "8/30/2020",
+    "transport": "t1",
+    "type": "ty2",
+    "image_main": "default_trip.jpg",
+    "expenses": [
+
+    ],
+    "members": []
   }
+
 ]
