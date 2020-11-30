@@ -1,0 +1,14 @@
+﻿[
+  {
+    "id": "s1",
+    "bg_name": "splash_01.jpg",
+    "name": "Vịnh Hạ Long",
+    "description": "Vịnh Hạ Long – được Unesco nhiều lần công nhận là di sản thiên nhiên của thế giới với hàng nghìn hòn đảo được làm nên bởi tạo hoá kỳ vĩ và sống động. Vịnh Hạ Long có phong cảnh tuyệt đẹp nên nơi đây là một điểm du lịch rất hấp dẫn với du khách trong nước và quốc tế."
+  },
+  {
+    "id": "s2",
+    "bg_name": "splash_02.jpg",
+    "name": "Núi Phú Sĩ",
+    "description": "Nếu Việt Nam đỉnh núi Fansipan được coi là nóc nhà của Đông Dương thì ở Nhật núi Phú sĩ được coi là biểu tượng của xứ phù tang này. Cùng với núi Tate và núi Haku, Phú sĩ được xem là 1 trong, ba núi,Nhật Bản. Nếu bạn là thực tập sinh, du học sinh có cơ hội đến Nhật làm việc và học tập hãy thử 1 lần tới ngọn núi đặc biệt này nhé."
+  }
+]

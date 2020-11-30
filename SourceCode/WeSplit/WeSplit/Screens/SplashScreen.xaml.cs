@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WeSplit.DAO;
+using WeSplit.DTO;
 
 namespace WeSplit.Screens
 {
@@ -19,6 +21,7 @@ namespace WeSplit.Screens
     /// </summary>
     public partial class SplashScreen : Window
     {
+        private List<SplashData> splashData = new List<SplashData>();
         public SplashScreen()
         {
             InitializeComponent();
@@ -26,25 +29,42 @@ namespace WeSplit.Screens
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            //string path = "splash_01.jpg";
+            splashData = SplashDataDAO.GetAll();
 
-            //var folder = AppDomain.CurrentDomain.BaseDirectory;
-            //var pathAbsolute = $"{folder}\\Assets\\Images\\Systems\\{path}";
+            Random _rng = new Random();
+            int indexRandom = _rng.Next(splashData.Count);
+            nameText.Text = splashData[indexRandom].Name;
+            desText.Text = splashData[indexRandom].Description;
 
-            //ImageBrush myBrush = new ImageBrush();
-            //Image image = new Image();
-            //image.Source = new BitmapImage(
-            //    new Uri(
-            //       pathAbsolute, UriKind.Absolute));
-            //myBrush.ImageSource = image.Source;
+
+            var folder = AppDomain.CurrentDomain.BaseDirectory;
+            var pathAbsolute = $"{folder}\\Assets\\Images\\Systems\\{splashData[indexRandom].BackgroundNameFile}";
+
+            ImageBrush myBrush = new ImageBrush();
+            Image image = new Image();
+            image.Source = new BitmapImage(
+                new Uri(
+                   pathAbsolute, UriKind.Absolute));
+            myBrush.ImageSource = image.Source;
+
+            container.Background = myBrush;
             
-            //container.Background = myBrush;
 
         }
 
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void saveShowCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

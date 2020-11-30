@@ -58,9 +58,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DAO\SplashDataDAO.cs" />
     <Compile Include="DAO\TripDAO.cs" />
     <Compile Include="DTO\Member.cs" />
     <Compile Include="DTO\Place.cs" />
+    <Compile Include="DTO\SplashData.cs" />
     <Compile Include="DTO\Transport.cs" />
     <Compile Include="DTO\Trip.cs" />
     <Compile Include="DTO\TypeTrip.cs" />
@@ -129,6 +131,7 @@
     <Resource Include="Assets\Fonts\Roboto-Regular.ttf" />
     <Resource Include="Assets\Fonts\Roboto-Thin.ttf" />
     <Resource Include="Assets\Fonts\Roboto-ThinItalic.ttf" />
+    <None Include="Data\splash-data.json" />
     <None Include="Data\transports.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

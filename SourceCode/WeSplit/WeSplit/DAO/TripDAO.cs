@@ -35,6 +35,7 @@ namespace WeSplit.DAO
             {
                 throw;
             }
+
             return result;
         }
     }
