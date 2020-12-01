@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WeSplit.DAO;
+using static WeSplit.Helpers.IEnum;
 
 namespace WeSplit.Screens
 {
@@ -22,6 +23,9 @@ namespace WeSplit.Screens
     {
         private Paging tripsPaging;
         private const int ROW_PER_PAGE = 6;
+        private StatusFilter statusFilter = StatusFilter.ALL;
+
+        
 
         public ListTripScreen()
         {
@@ -176,7 +180,7 @@ namespace WeSplit.Screens
 
         void HandlePagingInfoForTrips()
         {
-            var count = TripDAO.CountTrips();
+            var count = TripDAO.CountTrips(statusFilter);
 
             tripsPaging = new Paging
             {
@@ -186,8 +190,22 @@ namespace WeSplit.Screens
                     (((count % ROW_PER_PAGE) == 0) ? 0 : 1)
             };
 
-            
-            foreach(var page in tripsPaging.Pages)
+            pagingListView.Items.Clear();
+
+            var prevListViewItem = new ListViewItem();
+            prevListViewItem.Content = "next  ⏩";
+            Thickness paddingForNext = prevListViewItem.Padding;
+            paddingForNext.Left = 20;
+            paddingForNext.Right = 13;
+            paddingForNext.Top = 8;
+            paddingForNext.Bottom = 8;
+            prevListViewItem.Padding = paddingForNext;
+            prevListViewItem.Focusable = false;
+            prevListViewItem.Foreground = Brushes.White;
+            prevListViewItem.PreviewMouseLeftButtonUp += prevLVItem_PreviewMouseLeftButtonUp;
+            pagingListView.Items.Add(prevListViewItem);
+
+            foreach (var page in tripsPaging.Pages)
             {
                 
                 var pageListViewItem = new ListViewItem();
@@ -212,12 +230,12 @@ namespace WeSplit.Screens
 
             var nextListViewItem = new ListViewItem();
             nextListViewItem.Content = "next  ⏩";
-            Thickness paddingForNext = nextListViewItem.Padding;
+            Thickness paddingForPrev = nextListViewItem.Padding;
             paddingForNext.Left = 13;
             paddingForNext.Right = 20;
             paddingForNext.Top = 8;
             paddingForNext.Bottom = 8;
-            nextListViewItem.Padding = paddingForNext;
+            nextListViewItem.Padding = paddingForPrev;
             nextListViewItem.Focusable = false;
             nextListViewItem.Foreground = Brushes.White;
             nextListViewItem.PreviewMouseLeftButtonUp += nextLVItem_PreviewMouseLeftButtonUp;
@@ -228,9 +246,32 @@ namespace WeSplit.Screens
 
         void DisplayProducts()
         {
-            var fetchedTrips = TripDAO.GetTrips(tripsPaging.RowsPerPage, tripsPaging.CurrentPage);
+            var fetchedTrips = TripDAO.GetTrips(tripsPaging.RowsPerPage, tripsPaging.CurrentPage, statusFilter);
             tripsListView.ItemsSource = fetchedTrips;
         }
 
+        private void allFilterButton_Click(object sender, RoutedEventArgs e)
+        {
+            statusFilter = StatusFilter.ALL;
+
+            HandlePagingInfoForTrips();
+            DisplayProducts();
+        }
+
+        private void progressFilterButton_Click(object sender, RoutedEventArgs e)
+        {
+            statusFilter = StatusFilter.PROGRESS;
+
+            HandlePagingInfoForTrips();
+            DisplayProducts();
+        }
+
+        private void finishFilterButton_Click(object sender, RoutedEventArgs e)
+        {
+            statusFilter = StatusFilter.FINISH;
+
+            HandlePagingInfoForTrips();
+            DisplayProducts();
+        }
     }
 }

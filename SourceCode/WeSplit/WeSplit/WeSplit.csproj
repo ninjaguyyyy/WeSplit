@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -33,6 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -66,6 +68,7 @@
     <Compile Include="DTO\Transport.cs" />
     <Compile Include="DTO\Trip.cs" />
     <Compile Include="DTO\TypeTrip.cs" />
+    <Compile Include="Helpers\IEnum.cs" />
     <Compile Include="Helpers\ImagePathToAbsolutePathConverter.cs" />
     <Compile Include="Screens\AddTripScreen.xaml.cs">
       <DependentUpon>AddTripScreen.xaml</DependentUpon>

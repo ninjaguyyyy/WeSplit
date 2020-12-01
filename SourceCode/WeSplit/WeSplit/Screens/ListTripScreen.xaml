@@ -417,41 +417,6 @@
                                     </ItemsPanelTemplate>
                                 </ListView.ItemsPanel>
 
-                                <!--<ListView.View>
-                                    <GridView>
-                                        <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"/>
-                                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
-                                    </GridView>
-                                </ListView.View>-->
-                                
-                                <ListViewItem Padding="20,8,13,8"
-                                              Focusable="False"
-                                              Content="⏪  prev"
-                                              Foreground="White"
-                                              Name="prevLVItem"
-                                              PreviewMouseLeftButtonUp="prevLVItem_PreviewMouseLeftButtonUp">
-                                </ListViewItem>
-                                <!--<ListViewItem Padding="13, 8, 13, 8"
-                                              IsSelected="True">
-                                    <TextBlock Text="1"
-                                               Foreground="White"/>
-                                </ListViewItem>
-                                <ListViewItem Padding="13, 8, 13, 8">
-                                    <TextBlock Text="2"
-                                               Foreground="White"/>
-                                </ListViewItem>
-                                <ListViewItem Padding="13, 8, 13, 8">
-                                    <TextBlock Text="3"
-                                               Foreground="White"/>
-                                </ListViewItem>-->
-                                <!--<ListViewItem Padding="13, 8, 20, 8"
-                                              Focusable="False"
-                                              Name="nextLVItem"
-                                              PreviewMouseLeftButtonUp="nextLVItem_PreviewMouseLeftButtonUp">
-                                    <TextBlock Text="next  ⏩"
-                                               Foreground="White"/>
-                                </ListViewItem>-->
-
                                 <ListView.ItemContainerStyle>
                                     <Style TargetType="ListViewItem">
                                         <Setter Property="Template">
@@ -503,23 +468,38 @@
                         <Button Width="50" 
                                 Height="45"
                                 Style="{StaticResource AllTripButton}"
+                                Name="allFilterButton"
+                                Click="allFilterButton_Click"
                                 Margin="0, 10, 0, 10">
                             <Image Source="../Assets/Images/select-all.png"
                                    Width="35" />
+                            <Button.ToolTip>
+                                Tất cả
+                            </Button.ToolTip>
                         </Button>
                         <Button Width="50" 
+                                Name="progressFilterButton"
+                                Click="progressFilterButton_Click"
                                 Margin="0, 10, 0, 10"
                                 Height="45"
                                 Style="{StaticResource ProgressTripButton}">
                             <Image Source="../Assets/Images/running.png"
                                    Width="35" />
+                            <Button.ToolTip>
+                                Đang đi
+                            </Button.ToolTip>
                         </Button>
                         <Button Width="50" 
+                                Name="finishFilterButton"
+                                Click="finishFilterButton_Click"
                                 Margin="0, 10, 0, 10"
                                 Height="45"
                                 Style="{StaticResource FinishTripButton}">
                             <Image Source="../Assets/Images/goal.png"
                                    Width="35" />
+                            <Button.ToolTip>
+                                Đã kết thúc
+                            </Button.ToolTip>
                         </Button>
                     </StackPanel>
                 </Grid>

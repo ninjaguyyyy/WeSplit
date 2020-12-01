@@ -6,21 +6,34 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WeSplit.DTO;
+using static WeSplit.Helpers.IEnum;
 
 namespace WeSplit.DAO
 {
     class TripDAO
     {
-        public static List<Trip> GetTrips(int perPage, int pageCurrent)
+
+        public static List<Trip> GetTrips(int perPage, int pageCurrent, StatusFilter statusFilter)
         {
             var result = new List<Trip>();
 
             string jsonFilePath = "./Data/trips.json";
             var json = File.ReadAllText(jsonFilePath);
 
+            
+
             try
             {
                 JArray trips = JArray.Parse(json);
+
+                if(statusFilter == StatusFilter.FINISH)
+                {
+                    trips = new JArray(trips.Where(trip => trip["status"].ToString() == "finish"));
+                }
+                if(statusFilter == StatusFilter.PROGRESS)
+                {
+                    trips = new JArray(trips.Where(trip => trip["status"].ToString() == "progress"));
+                }
 
                 int skipValue = pageCurrent == 1 ? 0 : (pageCurrent - 1) * perPage;
                 trips = new JArray(trips.Skip(skipValue).Take(perPage));
@@ -43,7 +56,7 @@ namespace WeSplit.DAO
             return result;
         }
 
-        public static int CountTrips()
+        public static int CountTrips(StatusFilter statusFilter)
         {
             var result = 0;
 
@@ -53,6 +66,16 @@ namespace WeSplit.DAO
             try
             {
                 JArray trips = JArray.Parse(json);
+
+                if (statusFilter == StatusFilter.FINISH)
+                {
+                    trips = new JArray(trips.Where(trip => trip["status"].ToString() == "finish"));
+                }
+                if (statusFilter == StatusFilter.PROGRESS)
+                {
+                    trips = new JArray(trips.Where(trip => trip["status"].ToString() == "progress"));
+                }
+
                 result = trips.Count();
             }
             catch (Exception)
