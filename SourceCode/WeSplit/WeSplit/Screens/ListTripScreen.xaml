@@ -291,7 +291,8 @@
                             Style="{StaticResource RoundButton}">
                         <Image Source="../Assets/Images/bell.png" Width="20" />
                     </Button>
-                    <TextBox Text="TextBox with CornerRadius" 
+                    <TextBox Name="searchTextBox" 
+                             TextChanged="searchTextBox_TextChanged"
                              Width="600" 
                              Margin="20, 0, 0, 0"
                              VerticalAlignment="Center"

@@ -24,7 +24,7 @@ namespace WeSplit.Screens
         private Paging tripsPaging;
         private const int ROW_PER_PAGE = 6;
         private StatusFilter statusFilter = StatusFilter.ALL;
-
+        private string searchKey = "";
         
 
         public ListTripScreen()
@@ -180,7 +180,7 @@ namespace WeSplit.Screens
 
         void HandlePagingInfoForTrips()
         {
-            var count = TripDAO.CountTrips(statusFilter);
+            var count = TripDAO.CountTrips(statusFilter, searchKey);
 
             tripsPaging = new Paging
             {
@@ -246,7 +246,7 @@ namespace WeSplit.Screens
 
         void DisplayProducts()
         {
-            var fetchedTrips = TripDAO.GetTrips(tripsPaging.RowsPerPage, tripsPaging.CurrentPage, statusFilter);
+            var fetchedTrips = TripDAO.GetTrips(tripsPaging.RowsPerPage, tripsPaging.CurrentPage, statusFilter, searchKey);
             tripsListView.ItemsSource = fetchedTrips;
         }
 
@@ -269,6 +269,14 @@ namespace WeSplit.Screens
         private void finishFilterButton_Click(object sender, RoutedEventArgs e)
         {
             statusFilter = StatusFilter.FINISH;
+
+            HandlePagingInfoForTrips();
+            DisplayProducts();
+        }
+
+        private void searchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            searchKey = searchTextBox.Text;
 
             HandlePagingInfoForTrips();
             DisplayProducts();

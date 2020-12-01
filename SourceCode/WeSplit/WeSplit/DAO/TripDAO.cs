@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WeSplit.DTO;
+using WeSplit.Helpers;
 using static WeSplit.Helpers.IEnum;
 
 namespace WeSplit.DAO
@@ -13,7 +14,7 @@ namespace WeSplit.DAO
     class TripDAO
     {
 
-        public static List<Trip> GetTrips(int perPage, int pageCurrent, StatusFilter statusFilter)
+        public static List<Trip> GetTrips(int perPage, int pageCurrent, StatusFilter statusFilter, string searchKey)
         {
             var result = new List<Trip>();
 
@@ -26,10 +27,17 @@ namespace WeSplit.DAO
             {
                 JArray trips = JArray.Parse(json);
 
-                if(statusFilter == StatusFilter.FINISH)
+                string key = searchKey.Trim().ToLower();
+                if (key != "")
+                {
+                    trips = new JArray(trips.Where(trip => SearchHelper.ConvertToUnSign(trip["name"].ToString().ToLower()) == key));
+                }
+
+                if (statusFilter == StatusFilter.FINISH)
                 {
                     trips = new JArray(trips.Where(trip => trip["status"].ToString() == "finish"));
                 }
+
                 if(statusFilter == StatusFilter.PROGRESS)
                 {
                     trips = new JArray(trips.Where(trip => trip["status"].ToString() == "progress"));
@@ -56,7 +64,7 @@ namespace WeSplit.DAO
             return result;
         }
 
-        public static int CountTrips(StatusFilter statusFilter)
+        public static int CountTrips(StatusFilter statusFilter, string searchKey)
         {
             var result = 0;
 
@@ -66,6 +74,12 @@ namespace WeSplit.DAO
             try
             {
                 JArray trips = JArray.Parse(json);
+
+                string key = searchKey.Trim();
+                if(key != "")
+                {
+                    trips = new JArray(trips.Where(trip => trip["name"].ToString() == key));
+                }
 
                 if (statusFilter == StatusFilter.FINISH)
                 {

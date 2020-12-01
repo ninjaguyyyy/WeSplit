@@ -70,6 +70,7 @@
     <Compile Include="DTO\TypeTrip.cs" />
     <Compile Include="Helpers\IEnum.cs" />
     <Compile Include="Helpers\ImagePathToAbsolutePathConverter.cs" />
+    <Compile Include="Helpers\SearchHelper.cs" />
     <Compile Include="Screens\AddTripScreen.xaml.cs">
       <DependentUpon>AddTripScreen.xaml</DependentUpon>
     </Compile>
