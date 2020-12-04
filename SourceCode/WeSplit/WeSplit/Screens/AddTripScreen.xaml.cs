@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,6 +13,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WeSplit.DAO;
+using WeSplit.DTO;
 
 namespace WeSplit.Screens
 {
@@ -19,6 +23,15 @@ namespace WeSplit.Screens
     /// </summary>
     public partial class AddTripScreen : Window
     {
+
+        private List<TypeTrip> typeTrips = new List<TypeTrip>();
+        private List<Transport> transports = new List<Transport>();
+        private TypeTrip typeChosen;
+        private Transport transportChosen;
+        private string nameImage = "default_trip.jpg";
+        private string fileUploadPath;
+        private List<Member> members = new List<Member>();
+
         public AddTripScreen()
         {
             InitializeComponent();
@@ -48,11 +61,7 @@ namespace WeSplit.Screens
             mainPanel.Opacity = 1;
         }
 
-        private static Color GetBlack(Color black)
-        {
-            return black;
-        }
-
+        
         private void menuToggleButton_Checked(object sender, RoutedEventArgs e)
         {
             
@@ -66,7 +75,7 @@ namespace WeSplit.Screens
 
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            Application.Current.Shutdown();
         }
 
         private void startDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
@@ -80,6 +89,123 @@ namespace WeSplit.Screens
             var listTripScreen = new ListTripScreen();
             listTripScreen.Show();
             this.Close();
+        }
+
+        private void createButton_Click(object sender, RoutedEventArgs e)
+        {
+            string name = nameTextBox.Text;
+            var startDate = startDatePicker.SelectedDate;
+            var endDate = endDatePicker.SelectedDate;
+            if (startDate == null || (name == "") || endDate == null)
+            {
+                MessageBox.Show("Chưa điền đầy đủ thông tin", "Lỗi");
+            }
+             
+        }
+
+        private void workTypeButton_Click(object sender, RoutedEventArgs e)
+        {
+            typeChosen = typeTrips[1];
+            this.DataContext = new { type = typeChosen };
+        }
+
+        private void travelTypeButton_Click(object sender, RoutedEventArgs e)
+        {
+            typeChosen = typeTrips[0];
+            this.DataContext = new { type = typeChosen };
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            typeTrips = TypeTripDAO.Get();
+            transports = TransportDAO.Get();
+            typeChosen = typeTrips[0];
+            transportChosen = transports[0];
+
+            this.DataContext = new { type = typeChosen, transport = transportChosen};
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ChooseTransport_Button_Click(object sender, RoutedEventArgs e)
+        {
+            string idTransport = ((Button)sender).Tag.ToString();
+            transportChosen = TransportDAO.GetById(idTransport);
+
+            this.DataContext = new { type = typeChosen, transport = transportChosen };
+        }
+
+        private void imageUploadImage_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            OpenFileDialog op = new OpenFileDialog();
+            op.Title = "Chọn ảnh bìa chuyến đi";
+            op.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" +
+              "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" +
+              "Portable Network Graphic (*.png)|*.png";
+            op.Multiselect = false;
+            var o = op.ShowDialog();
+            if (o == true)
+            {
+                fileUploadPath = op.FileName;
+                imageUploadImage.Source = new BitmapImage(new Uri(op.FileName));
+                imageUploadImage.Tag = op.SafeFileName;
+            }
+        }
+
+        private void removeImage_Click(object sender, RoutedEventArgs e)
+        {
+            imageUploadImage.Source = new BitmapImage(new Uri("../Assets/Images/bg_upload.png", UriKind.Relative));
+            
+        }
+
+        private void uploadButton_Click(object sender, RoutedEventArgs e)
+        {
+            
+            if(imageUploadImage.Tag.ToString() != "default_trip.jpg")
+            {
+                nameImage = imageUploadImage.Tag.ToString();
+
+                // Copy file
+                var folder = AppDomain.CurrentDomain.BaseDirectory;
+
+                string newNameFile = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(nameImage);
+                var targetPath = $"{folder}\\Assets\\Images\\Uploads\\";
+                var destFile = System.IO.Path.Combine(targetPath, newNameFile);
+
+
+                System.IO.File.Copy(fileUploadPath, destFile, true);
+
+                // --
+
+            }
+        }
+
+        private void addMemberButton_Click(object sender, RoutedEventArgs e)
+        {
+            
+            var addMemberDialog = new AddMemberDialog();
+
+            if (addMemberDialog.ShowDialog() == true)
+            {
+                var newMember = addMemberDialog.NewMember;
+                members.Add(newMember);
+
+                memberListView.ItemsSource = null;
+                memberListView.ItemsSource = members;
+            }
+        }
+
+        private void removeMemberButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void editMemberButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -21,8 +21,6 @@ namespace WeSplit.DAO
             string jsonFilePath = "./Data/trips.json";
             var json = File.ReadAllText(jsonFilePath);
 
-            
-
             try
             {
                 JArray trips = JArray.Parse(json);

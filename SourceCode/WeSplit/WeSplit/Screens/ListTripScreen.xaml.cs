@@ -193,7 +193,7 @@ namespace WeSplit.Screens
             pagingListView.Items.Clear();
 
             var prevListViewItem = new ListViewItem();
-            prevListViewItem.Content = "next  ⏩";
+            prevListViewItem.Content = "⏪  prev";
             Thickness paddingForNext = prevListViewItem.Padding;
             paddingForNext.Left = 20;
             paddingForNext.Right = 13;

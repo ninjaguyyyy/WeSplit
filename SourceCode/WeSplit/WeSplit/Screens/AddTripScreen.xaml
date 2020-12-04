@@ -3,14 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WeSplit.Screens"
+        xmlns:local="clr-namespace:WeSplit.Screens" xmlns:local1="clr-namespace:WeSplit.Helpers"
         mc:Ignorable="d"
         Title="AddTripScreen"
         Height="620" Width="988"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         AllowsTransparency="True"
-        Background="Transparent">
+        Loaded="Window_Loaded"
+        Background="Transparent"
+        >
     <Window.Resources>
         <!--for toggle button-->
         <ImageBrush x:Key="tb_mouse_over"
@@ -158,39 +160,26 @@
         <ImageBrush x:Key="CloseBtn_MouseOver" ImageSource="../Assets/Images/power-button_bl.png"/>
 
         <Style x:Key="Close_btn" TargetType="{x:Type Button}">
-
             <Setter Property="Template">
-
                 <Setter.Value>
-
                     <ControlTemplate TargetType="{x:Type Button}">
-
                         <Border x:Name="button"
                                 BorderThickness="0"
                                 Background="{TemplateBinding Background}"
                                 SnapsToDevicePixels="True">
-
                         </Border>
-
                         <ControlTemplate.Triggers>
-
                             <Trigger Property="IsMouseOver"
                                      Value="True">
-
                                 <Setter Property="Background"
                                         TargetName="button"
                                         Value="{StaticResource CloseBtn_MouseOver}"/>
                                 <Setter Property="Cursor" Value="Hand"/>
                             </Trigger>
-
                         </ControlTemplate.Triggers>
-
                     </ControlTemplate>
-
                 </Setter.Value>
-
             </Setter>
-
         </Style>
 
         <Style x:Key="RoundButton" TargetType="Button">
@@ -316,6 +305,10 @@
             </Style.Triggers>
         </Style>
 
+        <local1:ImageNameToPathRelative x:Key="relativePathConverter" ></local1:ImageNameToPathRelative>
+
+        <local1:RandomAvatarConverter x:Key="random_avatar" />
+        <local1:MoneyUnitConverter x:Key="money_unit" />
     </Window.Resources>
 
     <Grid Margin="20">
@@ -352,7 +345,8 @@
                             Height="20"
                             Width="20"
                             BorderThickness="0"
-                            Style="{StaticResource Close_btn}" Click="CloseBtn_Click">
+                            Style="{StaticResource Close_btn}" 
+                            Click="CloseBtn_Click">
 
                         <Button.Background>
 
@@ -408,6 +402,8 @@
                                             BorderBrush="#00B5E2"
                                             Foreground="White"
                                             Padding="20, 5, 20, 5"
+                                            Name="createButton"
+                                            Click="createButton_Click"
                                             HorizontalAlignment="Left"
                                             Style="{StaticResource ConfirmButton}"
                                             Margin="10, 0, 10, 10">
@@ -468,6 +464,7 @@
                                                         <Label Content="Tên chuyến"
                                                                FontFamily="../Assets/Fonts/Roboto-Bold.ttf #Roboto"/>
                                                         <TextBox Padding="10, 5, 10, 5"
+                                                                 Name="nameTextBox"
                                                                  FontFamily="../Assets/Fonts/Roboto.ttf #Roboto">
                                                             <TextBox.Resources>
                                                                 <Style TargetType="{x:Type Border}">
@@ -483,10 +480,17 @@
                                                             <StackPanel Orientation="Horizontal"
                                                                         DockPanel.Dock="Right"
                                                                         HorizontalAlignment="Right">
-                                                                
+                                                                <TextBlock x:Name="displayChosen"
+                                                                           Text="{Binding type.Name}"
+                                                                           VerticalAlignment="Center"
+                                                                           FontSize="11"
+                                                                           FontFamily="../Assets/Fonts/Roboto-LightItalic.ttf #Roboto"/>
+
                                                                 <Button Width="20"
                                                                         Height="20"
                                                                         BorderThickness="0"
+                                                                        Name="travelTypeButton"
+                                                                        Click="travelTypeButton_Click"
                                                                         Margin="8, 0, 0, 0"
                                                                         Style="{StaticResource vehicle_button}">
                                                                     <Button.Background>
@@ -499,6 +503,8 @@
                                                                 <Button Width="20"
                                                                         Height="20"
                                                                         BorderThickness="0"
+                                                                        Name="workTypeButton"
+                                                                        Click="workTypeButton_Click"
                                                                         Margin="8, 0, 0, 0"
                                                                         Style="{StaticResource vehicle_button}">
                                                                     <Button.Background>
@@ -538,6 +544,7 @@
                                                                Grid.Row="0"
                                                                Grid.Column="2"/>
                                                         <DatePicker Grid.Row="1"
+                                                                    Name="endDatePicker"
                                                                  Grid.Column="2">
                                                             
                                                         </DatePicker>
@@ -560,11 +567,11 @@
                                                                 Grid.Row="1"
                                                                 HorizontalAlignment="Center">
                                                         <Button Width="30"
-                                                                        Height="30"
-                                                                        BorderThickness="0"
-                                                                        Style="{StaticResource vehicle_button}">
+                                                                Height="30"
+                                                                BorderThickness="0"
+                                                                Style="{StaticResource vehicle_button}">
                                                             <Button.Background>
-                                                                <ImageBrush ImageSource="../Assets/Images/plane.png" />
+                                                                <ImageBrush ImageSource="{Binding transport.NameImage, Converter={StaticResource relativePathConverter}}" />
                                                             </Button.Background>
                                                         </Button>
                                                     </StackPanel>
@@ -575,10 +582,12 @@
                                                             Padding="5, 3, 5, 0">
                                                         <WrapPanel>
                                                             <Button Width="30"
-                                                                        Height="30"
-                                                                        BorderThickness="0"
-                                                                        Margin="3, 2, 3, 2"
-                                                                        Style="{StaticResource vehicle_button}">
+                                                                    Height="30"
+                                                                    Tag="t2"
+                                                                    Click="ChooseTransport_Button_Click"
+                                                                    BorderThickness="0"
+                                                                    Margin="3, 2, 3, 2"
+                                                                    Style="{StaticResource vehicle_button}">
                                                                 <Button.Background>
                                                                     <ImageBrush ImageSource="../Assets/Images/car.png" />
                                                                 </Button.Background>
@@ -587,10 +596,12 @@
                                                                 </Button.ToolTip>
                                                             </Button>
                                                             <Button Width="30"
-                                                                        Height="30"
-                                                                        BorderThickness="0"
-                                                                        Margin="3, 2, 3, 2"
-                                                                        Style="{StaticResource vehicle_button}">
+                                                                    Height="30"
+                                                                    Click="ChooseTransport_Button_Click"
+                                                                    Tag="t3"
+                                                                    BorderThickness="0"
+                                                                    Margin="3, 2, 3, 2"
+                                                                    Style="{StaticResource vehicle_button}">
                                                                 <Button.Background>
                                                                     <ImageBrush ImageSource="../Assets/Images/motobike.png" />
                                                                 </Button.Background>
@@ -599,10 +610,12 @@
                                                                 </Button.ToolTip>
                                                             </Button>
                                                             <Button Width="30"
-                                                                        Height="30"
-                                                                        BorderThickness="0"
-                                                                        Margin="3, 2, 3, 2"
-                                                                        Style="{StaticResource vehicle_button}">
+                                                                    Height="30"
+                                                                    Tag="t1"
+                                                                    BorderThickness="0"
+                                                                    Click="ChooseTransport_Button_Click"
+                                                                    Margin="3, 2, 3, 2"
+                                                                    Style="{StaticResource vehicle_button}">
                                                                 <Button.Background>
                                                                     <ImageBrush ImageSource="../Assets/Images/bike.png" />
                                                                 </Button.Background>
@@ -611,10 +624,12 @@
                                                                 </Button.ToolTip>
                                                             </Button>
                                                             <Button Width="30"
-                                                                        Height="30"
-                                                                        BorderThickness="0"
-                                                                        Margin="3, 2, 3, 2"
-                                                                        Style="{StaticResource vehicle_button}">
+                                                                    Tag="t9"
+                                                                    Height="30"
+                                                                    BorderThickness="0"
+                                                                    Click="ChooseTransport_Button_Click"
+                                                                    Margin="3, 2, 3, 2"
+                                                                    Style="{StaticResource vehicle_button}">
                                                                 <Button.Background>
                                                                     <ImageBrush ImageSource="../Assets/Images/plane.png" />
                                                                 </Button.Background>
@@ -623,10 +638,12 @@
                                                                 </Button.ToolTip>
                                                             </Button>
                                                             <Button Width="30"
-                                                                        Height="30"
-                                                                        BorderThickness="0"
-                                                                        Margin="3, 2, 3, 2"
-                                                                        Style="{StaticResource vehicle_button}">
+                                                                    Tag="t7"
+                                                                    Height="30"
+                                                                    BorderThickness="0"
+                                                                    Click="ChooseTransport_Button_Click"
+                                                                    Margin="3, 2, 3, 2"
+                                                                    Style="{StaticResource vehicle_button}">
                                                                 <Button.Background>
                                                                     <ImageBrush ImageSource="../Assets/Images/coach.png" />
                                                                 </Button.Background>
@@ -635,10 +652,12 @@
                                                                 </Button.ToolTip>
                                                             </Button>
                                                             <Button Width="30"
-                                                                        Height="30"
-                                                                        BorderThickness="0"
-                                                                        Margin="3, 2, 3, 2"
-                                                                        Style="{StaticResource vehicle_button}">
+                                                                    Tag="t6"
+                                                                    Height="30"
+                                                                    BorderThickness="0"
+                                                                    Click="ChooseTransport_Button_Click"
+                                                                    Margin="3, 2, 3, 2"
+                                                                    Style="{StaticResource vehicle_button}">
                                                                 <Button.Background>
                                                                     <ImageBrush ImageSource="../Assets/Images/foot.png" />
                                                                 </Button.Background>
@@ -647,10 +666,12 @@
                                                                 </Button.ToolTip>
                                                             </Button>
                                                             <Button Width="30"
-                                                                        Height="30"
-                                                                        BorderThickness="0"
-                                                                        Margin="3, 2, 3, 2"
-                                                                        Style="{StaticResource vehicle_button}">
+                                                                    Tag="t4"
+                                                                    Height="30"
+                                                                    BorderThickness="0"
+                                                                    Click="ChooseTransport_Button_Click"
+                                                                    Margin="3, 2, 3, 2"
+                                                                    Style="{StaticResource vehicle_button}">
                                                                 <Button.Background>
                                                                     <ImageBrush ImageSource="../Assets/Images/train.png" />
                                                                 </Button.Background>
@@ -659,10 +680,12 @@
                                                                 </Button.ToolTip>
                                                             </Button>
                                                             <Button Width="30"
-                                                                        Height="30"
-                                                                        BorderThickness="0"
-                                                                        Margin="3, 2, 3, 2"
-                                                                        Style="{StaticResource vehicle_button}">
+                                                                    Tag="t5"
+                                                                    Height="30"
+                                                                    BorderThickness="0"
+                                                                    Click="ChooseTransport_Button_Click"
+                                                                    Margin="3, 2, 3, 2"
+                                                                    Style="{StaticResource vehicle_button}">
                                                                 <Button.Background>
                                                                     <ImageBrush ImageSource="../Assets/Images/ship.png" />
                                                                 </Button.Background>
@@ -671,10 +694,12 @@
                                                                 </Button.ToolTip>
                                                             </Button>
                                                             <Button Width="30"
-                                                                        Height="30"
-                                                                        BorderThickness="0"
-                                                                        Margin="3, 2, 3, 2"
-                                                                        Style="{StaticResource vehicle_button}">
+                                                                    Tag="t8"
+                                                                    Height="30"
+                                                                    BorderThickness="0"
+                                                                    Click="ChooseTransport_Button_Click"
+                                                                    Margin="3, 2, 3, 2"
+                                                                    Style="{StaticResource vehicle_button}">
                                                                 <Button.Background>
                                                                     <ImageBrush ImageSource="../Assets/Images/taxi.png" />
                                                                 </Button.Background>
@@ -811,7 +836,7 @@
                                                             BorderBrush="Gray"
                                                             BorderThickness="0, 1, 0, 1">
                                                         <DockPanel>
-                                                            <TextBlock Text="Họ tên"
+                                                            <TextBlock Text="Nội dung"
                                                                        DockPanel.Dock="Left"
                                                                        Width="100"/>
                                                             <TextBlock Text="Số tiền chung"
@@ -880,7 +905,12 @@
                                                     </Border.BorderBrush>
 
                                                     <DockPanel Margin="4">
-                                                        <Image Source="../Assets/Images/bg_upload.png" />
+                                                        <Image Source="../Assets/Images/bg_upload.png"
+                                                               Width="115"
+                                                               Tag="default_trip.jpg"
+                                                               Height="85"
+                                                               Name="imageUploadImage"
+                                                               MouseDown="imageUploadImage_MouseDown"/>
                                                     </DockPanel>
 
                                                 </Border>
@@ -897,11 +927,15 @@
                                                     <StackPanel Margin="0, 20, 0, 0"
                                                                 Orientation="Horizontal">
                                                         <Button Content="Upload"
+                                                                Name="uploadButton"
+                                                                Click="uploadButton_Click"
                                                                 Margin="0, 0, 5, 0"
                                                                 Foreground="White"
                                                                 Padding="8, 4, 8, 4"
                                                                 Style="{StaticResource UploadImage}"/>
                                                         <Button Content="Xóa ảnh"
+                                                                Name="removeImage"
+                                                                Click="removeImage_Click"
                                                                 Foreground="White"
                                                                 Padding="8, 4, 8, 4"
                                                                 Style="{StaticResource RemoveImage}" />
@@ -926,6 +960,8 @@
                                                 <Button HorizontalAlignment="Right" 
                                                         Width="25"
                                                         Height="25"
+                                                        Name="addMemberButton"
+                                                        Click="addMemberButton_Click"
                                                         BorderThickness="0"
                                                         Style="{StaticResource add_member_btn}">
                                                     <Button.Background>
@@ -934,294 +970,102 @@
                                                 </Button>
                                             </DockPanel>
 
+                                            <ListView x:Name="memberListView"
+                                                      ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                                      Grid.Row="1"
+                                                      BorderThickness="0">
 
-                                            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Disabled" CanContentScroll="True">
-                                                <StackPanel Orientation="Vertical">
-                                                    <Grid Margin="0, 0, 0, 8">
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition Width="50" />
-                                                            <ColumnDefinition Width="*" />
-                                                            <ColumnDefinition Width="130" />
-                                                        </Grid.ColumnDefinitions>
+                                                <ListView.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Grid Margin="0, 0, 0, 8">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="50" />
+                                                                <ColumnDefinition Width="120" />
+                                                                <ColumnDefinition Width="*" />
+                                                            </Grid.ColumnDefinitions>
 
-                                                        <Button Width="35"
+                                                            <Button Width="35"
+                                                                    Grid.Column="0"
                                                                     Height="35"
                                                                     BorderThickness="0"
                                                                     Style="{StaticResource add_member_btn}">
-                                                            <Button.Background>
-                                                                <ImageBrush ImageSource="../Assets/Images/man.png" />
-                                                            </Button.Background>
-                                                        </Button>
-                                                        <StackPanel Grid.Column="1">
-                                                            <TextBlock  VerticalAlignment="Center" 
-                                                                            Text="Tên thành viên"/>
-                                                            <TextBlock Text="Thành viên"
+                                                                <Button.Background>
+                                                                    <ImageBrush ImageSource="{Binding Name, Converter={StaticResource random_avatar}}" />
+                                                                </Button.Background>
+                                                            </Button>
+                                                            <StackPanel Grid.Column="1">
+                                                                <TextBlock  VerticalAlignment="Center" 
+                                                                            Text="{Binding Name}"/>
+                                                                <TextBlock Text="Thành viên"
                                                                            Foreground="#b1b1b1"
                                                                            FontSize="10"/>
-                                                        </StackPanel>
+                                                            </StackPanel>
 
-                                                        <StackPanel Orientation="Horizontal"
+                                                            <StackPanel Orientation="Horizontal"
                                                                         Grid.Column="2"
+                                                                        
                                                                         HorizontalAlignment="Right">
-
-                                                            <Button Width="28"
-                                                                        Height="28"
-                                                                        BorderThickness="0"
-                                                                        Margin="0, 0, 0, 0"
-                                                                        Style="{StaticResource vehicle_button}">
-                                                                <Button.Background>
-                                                                    <ImageBrush ImageSource="../Assets/Images/monney.png" />
-                                                                </Button.Background>
-                                                                <Button.ToolTip>
-                                                                    190k
-                                                                </Button.ToolTip>
-                                                            </Button>
-
-                                                            <Button Width="28"
-                                                                        Height="28"
-                                                                        BorderThickness="0"
-                                                                    Margin="5, 0, 0, 0"
-                                                                        Style="{StaticResource vehicle_button}">
-                                                                <Button.Background>
-                                                                    <ImageBrush ImageSource="../Assets/Images/telephone.png" />
-                                                                </Button.Background>
-                                                                <Button.ToolTip>
-                                                                    01626507146
-                                                                </Button.ToolTip>
-                                                            </Button>
-                                                            <Button Width="28"
-                                                                    Margin="5, 0, 0, 0"
-                                                                        Height="28"
-                                                                        BorderThickness="0"
-                                                                        Style="{StaticResource vehicle_button}">
-                                                                <Button.Background>
-                                                                    <ImageBrush ImageSource="../Assets/Images/paint-roller.png" />
-                                                                </Button.Background>
-                                                                <Button.ToolTip>
-                                                                    Sửa thông tin
-                                                                </Button.ToolTip>
-                                                            </Button>
-                                                            <Button Width="28"
-                                                                    Margin="5, 0, 0, 0"
-                                                                        Height="28"
-                                                                        BorderThickness="0"
-                                                                        Style="{StaticResource vehicle_button}">
-                                                                <Button.Background>
-                                                                    <ImageBrush ImageSource="../Assets/Images/remove.png" />
-                                                                </Button.Background>
-                                                                <Button.ToolTip>
-                                                                    Xóa thành viên
-                                                                </Button.ToolTip>
-                                                            </Button>
-                                                        </StackPanel>
-                                                    </Grid>
-
-                                                    <Grid Margin="0, 0, 0, 8">
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition Width="50" />
-                                                            <ColumnDefinition Width="*" />
-                                                            <ColumnDefinition Width="80" />
-                                                        </Grid.ColumnDefinitions>
-
-                                                        <Button Width="35"
-                                                                    Height="35"
-                                                                    BorderThickness="0"
-                                                                    Style="{StaticResource add_member_btn}">
-                                                            <Button.Background>
-                                                                <ImageBrush ImageSource="../Assets/Images/man.png" />
-                                                            </Button.Background>
-                                                        </Button>
-                                                        <StackPanel Grid.Column="1">
-                                                            <TextBlock  VerticalAlignment="Center" 
-                                                                            Text="Tên thành viên"/>
-                                                            <TextBlock Text="Thành viên"
-                                                                           Foreground="#b1b1b1"
-                                                                           FontSize="10"/>
-                                                        </StackPanel>
-
-                                                        <StackPanel Orientation="Horizontal"
-                                                                        Grid.Column="2"
-                                                                        HorizontalAlignment="Right">
-
-                                                            <Button Width="30"
-                                                                        Height="30"
+                                                                <Button Width="20"
+                                                                        Height="20"
                                                                         BorderThickness="0"
                                                                         Margin="0, 0, 8, 0"
-                                                                        Style="{StaticResource add_member_btn}">
-                                                                <Button.Background>
-                                                                    <ImageBrush ImageSource="../Assets/Images/monney.png" />
-                                                                </Button.Background>
-                                                            </Button>
+                                                                        Style="{StaticResource vehicle_button}">
+                                                                    <Button.Background>
+                                                                        <ImageBrush ImageSource="../Assets/Images/monney.png" />
+                                                                    </Button.Background>
+                                                                    <Button.ToolTip>
+                                                                        <ToolTip Content="{Binding Donation, Converter={StaticResource money_unit}}" />
+                                                                    </Button.ToolTip>
+                                                                </Button>
 
-                                                            <Button Width="30"
-                                                                        Height="30"
+                                                                <Button Width="20"
+                                                                        Height="20"
                                                                         BorderThickness="0"
-                                                                        Style="{StaticResource add_member_btn}">
-                                                                <Button.Background>
-                                                                    <ImageBrush ImageSource="../Assets/Images/telephone.png" />
-                                                                </Button.Background>
-                                                            </Button>
-
-
-                                                        </StackPanel>
-
-
-                                                    </Grid>
-                                                    <Grid Margin="0, 0, 0, 8">
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition Width="50" />
-                                                            <ColumnDefinition Width="*" />
-                                                            <ColumnDefinition Width="80" />
-                                                        </Grid.ColumnDefinitions>
-
-                                                        <Button Width="35"
-                                                                    Height="35"
-                                                                    BorderThickness="0"
-                                                                    Style="{StaticResource add_member_btn}">
-                                                            <Button.Background>
-                                                                <ImageBrush ImageSource="../Assets/Images/man.png" />
-                                                            </Button.Background>
-                                                        </Button>
-                                                        <StackPanel Grid.Column="1">
-                                                            <TextBlock  VerticalAlignment="Center" 
-                                                                            Text="Tên thành viên"/>
-                                                            <TextBlock Text="Thành viên"
-                                                                           Foreground="#b1b1b1"
-                                                                           FontSize="10"/>
-                                                        </StackPanel>
-
-                                                        <StackPanel Orientation="Horizontal"
-                                                                        Grid.Column="2"
-                                                                        HorizontalAlignment="Right">
-
-                                                            <Button Width="30"
-                                                                        Height="30"
+                                                                        Style="{StaticResource vehicle_button}">
+                                                                    <Button.Background>
+                                                                        <ImageBrush ImageSource="../Assets/Images/telephone.png" />
+                                                                    </Button.Background>
+                                                                    <Button.ToolTip>
+                                                                        Đang phát triển
+                                                                    </Button.ToolTip>
+                                                                </Button>
+                                                                <Button Width="20"
+                                                                        Margin="5, 0, 0, 0"
+                                                                        Name="editMemberButton"
+                                                                        Height="20"
+                                                                        Click="editMemberButton_Click"
                                                                         BorderThickness="0"
-                                                                        Margin="0, 0, 8, 0"
-                                                                        Style="{StaticResource add_member_btn}">
-                                                                <Button.Background>
-                                                                    <ImageBrush ImageSource="../Assets/Images/monney.png" />
-                                                                </Button.Background>
-                                                            </Button>
-
-                                                            <Button Width="30"
-                                                                        Height="30"
+                                                                        Style="{StaticResource vehicle_button}">
+                                                                    <Button.Background>
+                                                                        <ImageBrush ImageSource="../Assets/Images/paint-roller.png" />
+                                                                    </Button.Background>
+                                                                    <Button.ToolTip>
+                                                                        Sửa thông tin
+                                                                    </Button.ToolTip>
+                                                                </Button>
+                                                                <Button Width="20"
+                                                                        Margin="5, 0, 0, 0"
+                                                                        Name="removeMemberButton"
+                                                                        Height="20"
+                                                                        Click="removeMemberButton_Click"
                                                                         BorderThickness="0"
-                                                                        Style="{StaticResource add_member_btn}">
-                                                                <Button.Background>
-                                                                    <ImageBrush ImageSource="../Assets/Images/telephone.png" />
-                                                                </Button.Background>
-                                                            </Button>
+                                                                        Style="{StaticResource vehicle_button}">
+                                                                    <Button.Background>
+                                                                        <ImageBrush ImageSource="../Assets/Images/remove.png" />
+                                                                    </Button.Background>
+                                                                    <Button.ToolTip>
+                                                                        Xóa thành viên
+                                                                    </Button.ToolTip>
+                                                                </Button>
+
+                                                            </StackPanel>
 
 
-                                                        </StackPanel>
-
-
-                                                    </Grid>
-                                                    <Grid Margin="0, 0, 0, 8">
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition Width="50" />
-                                                            <ColumnDefinition Width="*" />
-                                                            <ColumnDefinition Width="80" />
-                                                        </Grid.ColumnDefinitions>
-
-                                                        <Button Width="35"
-                                                                    Height="35"
-                                                                    BorderThickness="0"
-                                                                    Style="{StaticResource add_member_btn}">
-                                                            <Button.Background>
-                                                                <ImageBrush ImageSource="../Assets/Images/man.png" />
-                                                            </Button.Background>
-                                                        </Button>
-                                                        <StackPanel Grid.Column="1">
-                                                            <TextBlock  VerticalAlignment="Center" 
-                                                                            Text="Tên thành viên"/>
-                                                            <TextBlock Text="Thành viên"
-                                                                           Foreground="#b1b1b1"
-                                                                           FontSize="10"/>
-                                                        </StackPanel>
-
-                                                        <StackPanel Orientation="Horizontal"
-                                                                        Grid.Column="2"
-                                                                        HorizontalAlignment="Right">
-
-                                                            <Button Width="30"
-                                                                        Height="30"
-                                                                        BorderThickness="0"
-                                                                        Margin="0, 0, 8, 0"
-                                                                        Style="{StaticResource add_member_btn}">
-                                                                <Button.Background>
-                                                                    <ImageBrush ImageSource="../Assets/Images/monney.png" />
-                                                                </Button.Background>
-                                                            </Button>
-
-                                                            <Button Width="30"
-                                                                        Height="30"
-                                                                        BorderThickness="0"
-                                                                        Style="{StaticResource add_member_btn}">
-                                                                <Button.Background>
-                                                                    <ImageBrush ImageSource="../Assets/Images/telephone.png" />
-                                                                </Button.Background>
-                                                            </Button>
-
-
-                                                        </StackPanel>
-
-
-                                                    </Grid>
-                                                    <Grid Margin="0, 0, 0, 10">
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition Width="50" />
-                                                            <ColumnDefinition Width="*" />
-                                                            <ColumnDefinition Width="80" />
-                                                        </Grid.ColumnDefinitions>
-
-                                                        <Button Width="35"
-                                                                    Height="35"
-                                                                    BorderThickness="0"
-                                                                    Style="{StaticResource add_member_btn}">
-                                                            <Button.Background>
-                                                                <ImageBrush ImageSource="../Assets/Images/man.png" />
-                                                            </Button.Background>
-                                                        </Button>
-                                                        <StackPanel Grid.Column="1">
-                                                            <TextBlock  VerticalAlignment="Center" 
-                                                                            Text="Tên thành viên"/>
-                                                            <TextBlock Text="Thành viên"
-                                                                           Foreground="#b1b1b1"
-                                                                           FontSize="10"/>
-                                                        </StackPanel>
-
-                                                        <StackPanel Orientation="Horizontal"
-                                                                        Grid.Column="2"
-                                                                        HorizontalAlignment="Right">
-
-                                                            <Button Width="30"
-                                                                        Height="30"
-                                                                        BorderThickness="0"
-                                                                        Margin="0, 0, 8, 0"
-                                                                        Style="{StaticResource add_member_btn}">
-                                                                <Button.Background>
-                                                                    <ImageBrush ImageSource="../Assets/Images/monney.png" />
-                                                                </Button.Background>
-                                                            </Button>
-
-                                                            <Button Width="30"
-                                                                        Height="30"
-                                                                        BorderThickness="0"
-                                                                        Style="{StaticResource add_member_btn}">
-                                                                <Button.Background>
-                                                                    <ImageBrush ImageSource="../Assets/Images/telephone.png" />
-                                                                </Button.Background>
-                                                            </Button>
-
-
-                                                        </StackPanel>
-
-
-                                                    </Grid>
-                                                </StackPanel>
-                                            </ScrollViewer>
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </ListView.ItemTemplate>
+                                            </ListView>
                                         </Grid>
                                     </Grid>
                                 </Grid>

@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace WeSplit.DTO
 {
-    class Member
+    public class Member
     {
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public string Donation { get; set; }
+
     }
 }

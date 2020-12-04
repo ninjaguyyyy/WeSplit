@@ -61,7 +61,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DAO\SplashDataDAO.cs" />
+    <Compile Include="DAO\TransportDAO.cs" />
     <Compile Include="DAO\TripDAO.cs" />
+    <Compile Include="DAO\TypeTripDAO.cs" />
     <Compile Include="DTO\Member.cs" />
     <Compile Include="DTO\Place.cs" />
     <Compile Include="DTO\SplashData.cs" />
@@ -69,8 +71,14 @@
     <Compile Include="DTO\Trip.cs" />
     <Compile Include="DTO\TypeTrip.cs" />
     <Compile Include="Helpers\IEnum.cs" />
+    <Compile Include="Helpers\ImageNameToPathRelative.cs" />
     <Compile Include="Helpers\ImagePathToAbsolutePathConverter.cs" />
+    <Compile Include="Helpers\MoneyUnitConverter.cs" />
+    <Compile Include="Helpers\RandomAvatarConverter.cs" />
     <Compile Include="Helpers\SearchHelper.cs" />
+    <Compile Include="Screens\AddMemberDialog.xaml.cs">
+      <DependentUpon>AddMemberDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Screens\AddTripScreen.xaml.cs">
       <DependentUpon>AddTripScreen.xaml</DependentUpon>
     </Compile>
@@ -88,6 +96,10 @@
     <Compile Include="Screens\SplashScreen.xaml.cs">
       <DependentUpon>SplashScreen.xaml</DependentUpon>
     </Compile>
+    <Page Include="Screens\AddMemberDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Screens\AddTripScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -296,6 +308,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Images\Systems\splash_04.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\add-user.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
