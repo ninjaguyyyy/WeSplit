@@ -3,14 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WeSplit.Screens"
+        xmlns:local="clr-namespace:WeSplit.Screens" xmlns:local1="clr-namespace:WeSplit.Helpers" xmlns:Wpf="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
         Title="DetailTripScreen"
         Height="620" Width="988"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         AllowsTransparency="True"
-        Background="Transparent">
+        Background="Transparent"
+        Loaded="Window_Loaded">
     <Window.Resources>
         <!--for toggle button-->
         <ImageBrush x:Key="tb_mouse_over"
@@ -34,57 +35,37 @@
                     Value="20"/>
 
         </Style>
-
         <Style x:Key="tb_style" TargetType="{x:Type ToggleButton}">
-
             <Setter Property="Template">
-
                 <Setter.Value>
-
                     <ControlTemplate TargetType="{x:Type ToggleButton}">
-
                         <Border  x:Name="border"
                                  BorderThickness="{TemplateBinding BorderThickness}"
                                  Background="{TemplateBinding Background}"
                                  SnapsToDevicePixels="True">
-
                         </Border>
-
                         <ControlTemplate.Triggers>
-
                             <Trigger Property="IsMouseOver" Value="true">
-
                                 <Setter Property="Background"
                                         TargetName="border"
                                         Value="{StaticResource tb_mouse_over}"/>
-
                                 <Setter Property="BorderBrush"
                                         TargetName="border"
                                         Value="{StaticResource tb_mouse_over}"/>
                                 <Setter Property="Cursor" Value="Hand"/>
-
                             </Trigger>
-
                             <Trigger Property="IsChecked" Value="true">
-
                                 <Setter Property="Background"
                                         TargetName="border"
                                         Value="{StaticResource tb_mouse_over}"/>
-
                                 <Setter Property="BorderBrush"
                                         TargetName="border"
                                         Value="{StaticResource tb_mouse_over}"/>
-
                             </Trigger>
-
                         </ControlTemplate.Triggers>
-
                     </ControlTemplate>
-
                 </Setter.Value>
-
             </Setter>
-
         </Style>
 
         <Style TargetType="ToolTip" x:Key="tt_style">
@@ -103,48 +84,169 @@
             <Setter Property="VerticalOffset" Value="6"/>
             <Setter Property="HasDropShadow" Value="True"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
-
-
         </Style>
 
-        <ImageBrush x:Key="CloseBtn_MouseOver" ImageSource="../Assets/Images/power-button_bl.png"/>
-
-        <Style x:Key="Close_btn" TargetType="{x:Type Button}">
-
+        <Style x:Key="vehicle_button" TargetType="{x:Type Button}">
             <Setter Property="Template">
-
                 <Setter.Value>
-
                     <ControlTemplate TargetType="{x:Type Button}">
-
                         <Border x:Name="button"
                                 BorderThickness="0"
                                 Background="{TemplateBinding Background}"
                                 SnapsToDevicePixels="True">
-
                         </Border>
-
                         <ControlTemplate.Triggers>
-
                             <Trigger Property="IsMouseOver"
                                      Value="True">
+                                <Setter Property="Cursor" Value="Hand"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        <ImageBrush x:Key="CloseBtn_MouseOver" ImageSource="../Assets/Images/power-button_bl.png"/>
 
+        <Style x:Key="Close_btn" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="button"
+                                BorderThickness="0"
+                                Background="{TemplateBinding Background}"
+                                SnapsToDevicePixels="True">
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
                                 <Setter Property="Background"
                                         TargetName="button"
                                         Value="{StaticResource CloseBtn_MouseOver}"/>
                                 <Setter Property="Cursor" Value="Hand"/>
                             </Trigger>
-
                         </ControlTemplate.Triggers>
-
                     </ControlTemplate>
-
                 </Setter.Value>
-
             </Setter>
-
         </Style>
 
+        <ImageBrush x:Key="addTripBtn_MouseOver" ImageSource="../Assets/Images/plus_active.png"/>
+
+        <Style x:Key="addTrip_btn" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="button"
+                                BorderThickness="0"
+                                Background="{TemplateBinding Background}"
+                                SnapsToDevicePixels="True">
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+                                <Setter Property="Background"
+                                        TargetName="button"
+                                        Value="{StaticResource addTripBtn_MouseOver}"/>
+                                <Setter Property="Cursor" Value="Hand"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="BlueBorderButton" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#71A5F0"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="#71A5F0" 
+                                CornerRadius="14"
+                                BorderThickness="1"
+                                Padding="{TemplateBinding Padding}"
+                                >
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#8EABE6"/>
+                    <Setter Property="Cursor" Value="Hand" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="ImageBorderButton" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#ECF5FF"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="#71A5F0" 
+                                CornerRadius="5"
+                                BorderThickness="0"
+                                Padding="{TemplateBinding Padding}"
+                                >
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#2C9AFF"/>
+                    <Setter Property="Cursor" Value="Hand" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="PinkBorderButton" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#9593FF"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="#9593FF" 
+                                CornerRadius="14"
+                                BorderThickness="1"
+                                Padding="{TemplateBinding Padding}"
+                                >
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#9593FF"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="Cursor" Value="Hand" />
+                </Trigger>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="Background" Value="#9593FF"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="Cursor" Value="Hand" />
+                </Trigger>
+                <Trigger Property="IsDefaulted" Value="True">
+                    <Setter Property="Background" Value="#9593FF"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="Cursor" Value="Hand" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <local1:ImageNameToPathRelative x:Key="relativePathConverter" ></local1:ImageNameToPathRelative>
+
+        <local1:ImagePathToAbsolutePathConverter x:Key="converter"></local1:ImagePathToAbsolutePathConverter>
     </Window.Resources>
 
     <Grid Margin="20">
@@ -184,11 +286,8 @@
                             Style="{StaticResource Close_btn}" Click="CloseBtn_Click">
 
                         <Button.Background>
-
                             <ImageBrush ImageSource="../Assets/Images/power-button_red.png"/>
-
                         </Button.Background>
-
                     </Button>
                 </DockPanel>
 
@@ -206,10 +305,25 @@
                             <RowDefinition Height="1*"/>
                         </Grid.RowDefinitions>
 
-                        <DockPanel Background="Transparent" Grid.Row="0" Margin="0, 0, 0, 20">
-                            <TextBlock DockPanel.Dock="Top" 
-                                       Text="Tên chuyến đi" 
-                                       FontFamily="../Assets/Fonts/Roboto-Bold.ttf #Roboto"/>
+                        <DockPanel Background="Transparent" 
+                                   Grid.Row="0" 
+                                   Margin="0, 0, 0, 20">
+                            <DockPanel DockPanel.Dock="Top"
+                                       >
+                                <TextBlock  Text="{Binding Trip.Name}" 
+                                            FontFamily="../Assets/Fonts/Roboto-Bold.ttf #Roboto"/>
+                                <Button x:Name="finishButton"
+                                        Width="auto"
+                                        Click="finishButton_Click"
+                                        HorizontalAlignment="Right"
+                                        DockPanel.Dock="Right"
+                                        FontSize="10"
+                                        IsEnabled="{Binding Trip.Status}"
+                                        Padding="12, 5, 12, 5"
+                                        Content="{Binding Trip.NameButtonStatus}"
+                                        Style="{StaticResource BlueBorderButton}"/>
+                            </DockPanel>
+                            
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="1.2*" />
@@ -221,28 +335,40 @@
                                 <StackPanel Background="White" Grid.Column="0">
                                     <TextBlock Text="Bắt đầu: " 
                                                FontSize="11" 
-                                               Margin="0, 10, 0, 0"
+                                               Margin="0, 8, 0, 0"
                                                Foreground="#B1B1B1"/>
-                                    <TextBlock Text="1/2/2020"
-                                               Margin="0, 10, 0, 0"
+                                    <TextBlock Text="{Binding Trip.StartDate}"
+                                               Margin="0, 8, 0, 0"
                                                Foreground="#2C9AFF"
                                                FontFamily="../Assets/Fonts/Roboto-Bold.ttf #Roboto"/>
                                     <TextBlock Text="Kết thúc: " 
                                                FontSize="11"
-                                               Margin="0, 10, 0, 0"
+                                               Margin="0, 8, 0, 0"
                                                Foreground="#B1B1B1"/>
-                                    <TextBlock Text="1/2/2020"
-                                               Margin="0, 10, 0, 0"
+                                    <TextBlock Text="{Binding Trip.EndDate}"
+                                               Margin="0, 8, 0, 0"
                                                Foreground="#2C9AFF"
                                                FontFamily="../Assets/Fonts/Roboto-Bold.ttf #Roboto"/>
                                     <TextBlock Text="Phương tiện: " 
                                                FontSize="11"
-                                               Margin="0, 10, 0, 0"
+                                               Margin="0, 8, 0, 0"
                                                Foreground="#B1B1B1" />
+                                    <Button Width="28"
+                                            Height="28"
+                                            BorderThickness="0"
+                                            Style="{StaticResource vehicle_button}"
+                                            Margin="3, 2, 3, 2">
+                                        <Button.Background>
+                                            <ImageBrush ImageSource="{Binding Trip.Transport.NameImage, Converter={StaticResource relativePathConverter}}" />
+                                        </Button.Background>
+                                        <Button.ToolTip>
+                                            <ToolTip Content="{Binding Trip.Transport.Name}" />
+                                        </Button.ToolTip>
+                                    </Button>
                                 </StackPanel>
                                 <StackPanel Background="Black" Grid.Column="1"></StackPanel>
                                 <StackPanel Grid.Column="2">
-                                    <Image Source="../Assets/Images/Systems/960x0.jpg" 
+                                    <Image Source="{Binding Trip.MainImage, Converter={StaticResource converter}}" 
                                            Margin="10, 5, 0, 5"/>
                                 </StackPanel>
                             </Grid>
@@ -253,7 +379,97 @@
                                 Background="#F6F6FA" 
                                 Grid.Row="1"
                                 Margin="0, 0, 0, 10">
-                            
+                            <Grid Margin="10, 5, 10, 5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="20" />
+                                    <RowDefinition Height="40"/>
+                                    <RowDefinition Height="40"/>
+                                    <RowDefinition Height="*"/>
+                                    
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="Bảng thu chi"
+                                           Grid.Row="0"
+                                           Margin="0, 5, 0, 0"
+                                           Foreground="#99999C"
+                                           FontSize="9"
+                                           FontFamily="../Assets/Fonts/Roboto-Bold.ttf #Roboto"/>
+                                <Border Grid.Row="1"
+                                        Background="White"
+                                        CornerRadius="18">
+                                    <DockPanel>
+                                        <TextBlock Text="Tổng cộng"
+                                                   VerticalAlignment="Center"
+                                                   Margin="10, 0, 0, 0"
+                                                   FontFamily="../Assets/Fonts/Roboto-Bold.ttf #Roboto"
+                                        />
+                                        <Border DockPanel.Dock="Right"
+                                                CornerRadius="10"
+                                                Padding="15, 5, 15, 5"
+                                                Margin="0 5, 10, 5"
+                                                Background="#9593FF"
+                                                HorizontalAlignment="Right"
+                                        >
+                                            <TextBlock Name="totalTextBlock"
+                                                       Foreground="White"
+                                                       FontFamily="../Assets/Fonts/Roboto-Bold.ttf #Roboto"
+                                                       VerticalAlignment="Center"
+                                                       Text="124 vnđ"
+                                            />
+                                        </Border>
+                                    </DockPanel>
+                                </Border>
+                                <StackPanel Orientation="Horizontal"
+                                            Margin="10, 10, 10, 5"
+                                            VerticalAlignment="Top"
+                                            Grid.Row="2">
+                                    <Button Content="Bảng Thu" 
+                                            Name="showExpensesButton"
+                                            Click="showExpensesButton_Click"
+                                            FontFamily="../Assets/Fonts/Roboto.ttf #Roboto"
+                                            FontSize="10"
+                                            Height="22"
+                                            Padding="14, 0, 14, 0"
+                                            Style="{StaticResource PinkBorderButton}"/>
+                                    <Button Content="Bảng Chi"
+                                            Name="showDonationsButton"
+                                            Click="showDonationsButton_Click"
+                                            Margin="10, 0, 10, 0"
+                                            FontFamily="../Assets/Fonts/Roboto.ttf #Roboto"
+                                            FontSize="10"
+                                            Height="22"
+                                            Padding="14, 0, 14, 0"
+                                            Style="{StaticResource PinkBorderButton}"/>
+                                    <Button Content="Thành viên" 
+                                            IsDefault="True"
+                                            Name="showMembersButton"
+                                            Click="showMembersButton_Click"
+                                            FontFamily="../Assets/Fonts/Roboto.ttf #Roboto"
+                                            FontSize="10"
+                                            Height="22"
+                                            Padding="14, 0, 14, 0"
+                                            Style="{StaticResource PinkBorderButton}"/>
+                                </StackPanel>
+                                <ListView Grid.Row="3"
+                                          Name="membersListView"
+                                          Margin="0, 0, 0, 5">
+                                    <ListViewItem>Thanh vien 1</ListViewItem>
+                                    <ListViewItem>Thanh vien 2</ListViewItem>
+                                </ListView>
+                                <ListView Grid.Row="3"
+                                          Visibility="Collapsed"
+                                          Name="expensesListView"
+                                          Margin="0, 0, 0, 5">
+                                    <ListViewItem>Chi 1</ListViewItem>
+                                    <ListViewItem>Chi 2</ListViewItem>
+                                </ListView>
+                                <ListView Grid.Row="3"
+                                          Visibility="Collapsed"
+                                          Name="donationsListView"
+                                          Margin="0, 0, 0, 5">
+                                    <ListViewItem>Thu 1</ListViewItem>
+                                    <ListViewItem>Thu 2</ListViewItem>
+                                </ListView>
+                            </Grid>
                         </Border>
                         <StackPanel Grid.Row="2" Orientation="Horizontal">
                             <Image Source="../Assets/Images/member_bg.png" Margin="5, 5, 5, 5"/>
@@ -264,6 +480,10 @@
                                            Text="Mời thành viên cùng tham gia chuyến đi" />
                                 <Button Content="Mời thành viên"
                                         Width="100"
+                                        FontSize="11"
+                                        Foreground="White"
+                                        Padding="10, 8, 10, 8"
+                                        Style="{StaticResource BlueBorderButton}"
                                         HorizontalAlignment="Left"/>
                             </StackPanel>
                         </StackPanel>
@@ -271,7 +491,7 @@
                     </Grid>
                     <Grid Grid.Column="2" Margin="10, 0, 0, 0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1.5*"/>
                             <ColumnDefinition Width="1.5*"/>
                         </Grid.ColumnDefinitions>
 
@@ -282,11 +502,119 @@
                                        TextWrapping="Wrap"
                                        FontFamily="../Assets/Fonts/Roboto.ttf #Roboto"
                                        FontSize="15"/>
+                            <Button x:Name="addPlaceButton"
+                                    HorizontalAlignment="Center"
+                                    Height="30"
+                                    Margin="0, 5, 0, 0"
+                                    Width="30"
+                                    BorderThickness="0"
+                                    Style="{StaticResource addTrip_btn}" Click="CloseBtn_Click">
+
+                                <Button.Background>
+                                    <ImageBrush ImageSource="../Assets/Images/plus.png"/>
+                                </Button.Background>
+                            </Button>
                             <Border BorderThickness="1" 
                                     CornerRadius="20" 
-                                    Background="#F6F6FA"
-                                    Height="80"
+                                    Background="#F8F4FF"
+                                    Height="100"
                                     Margin="10, 10, 10, 10">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="65" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Border Grid.Column="0"
+                                            Margin="5, 5, 5, 5"
+                                            Padding="0, 0, 0, 5"
+                                            CornerRadius="15"
+                                            Background="#C3B5E0">
+                                        <Image  Width="55"
+                                                VerticalAlignment="Bottom"
+                                                Source="../Assets/Images/hotel.png" />
+                                    </Border>
+                                    <Grid Grid.Column="1"
+                                          Margin="0, 5, 5, 5">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="15" />
+                                            <RowDefinition Height="12" />
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="15" />
+                                        </Grid.RowDefinitions>
+                                        <DockPanel Grid.Row="0">
+                                            <TextBlock Text="Barcelona"
+                                                       VerticalAlignment="Top"
+                                                       FontSize="12"
+                                                       FontFamily="../Assets/Fonts/Roboto-Bold.ttf #Roboto"/>
+                                            <TextBlock Text="24/06 - 30/06"
+                                                       HorizontalAlignment="Right"
+                                                       Margin="0, 3, 8, 0"
+                                                       FontSize="8"
+                                                       FontFamily="../Assets/Fonts/Roboto-Bold.ttf #Roboto"
+                                                       Foreground="#61B3FF"/>
+                                        </DockPanel>
+                                        <TextBlock Grid.Row="1"
+                                                   Foreground="#61B3FF"
+                                                   FontSize="8"
+                                                   FontFamily="../Assets/Fonts/Roboto-Bold.ttf #Roboto"
+                                                   Text="Quận 9, TP.HCM"
+                                        />
+                                        <TextBlock Text="Ho Chi Minh City haittlerencultud political groups. Originally a trading port city of"
+                                                   FontSize="10"
+                                                   Grid.Row="2"
+                                                   TextWrapping="Wrap"
+                                                   FontFamily="../Assets/Fonts/Roboto-Regular.ttf #Roboto"/>
+                                        <StackPanel Grid.Row="3"
+                                                    Orientation="Horizontal"
+                                                    VerticalAlignment="Bottom">
+                                            <Image Source="../Assets/Images/calendar.png"
+                                                   Width="14"/>
+                                            <TextBlock Text="5"
+                                                       VerticalAlignment="Bottom"
+                                                       Margin="5, 0, 0, 0"
+                                                       FontSize="13"
+                                                       FontFamily="../Assets/Fonts/Roboto-Bold.ttf #Roboto"/>
+                                            <TextBlock Text=" ngày"
+                                                       FontSize="10"/>
+                                            <Image Source="../Assets/Images/settings.png"
+                                                   Width="14"
+                                                   Margin="15, 0, 5, 0"/>
+                                            <TextBlock Text="Sửa"
+                                                       VerticalAlignment="Center"
+                                                       FontSize="10"
+                                                       TextDecorations="Underline"
+                                                       Margin="0, 0, 5, 0"
+                                                       FontFamily="../Assets/Fonts/Roboto-Bold.ttf #Roboto">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Style.Triggers>
+                                                            <Trigger Property ="IsMouseOver" Value="True">
+                                                                <Setter Property= "Foreground" Value="#61B3FF"/>
+                                                                <Setter Property="Cursor" Value="Hand" />
+                                                            </Trigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                            <TextBlock Text="Xóa"
+                                                       TextDecorations="Underline"
+                                                       VerticalAlignment="Center"
+                                                       FontSize="10"
+                                                       FontFamily="../Assets/Fonts/Roboto-Bold.ttf #Roboto">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Style.Triggers>
+                                                            <Trigger Property ="IsMouseOver" Value="True">
+                                                                <Setter Property= "Foreground" Value="#61B3FF"/>
+                                                                <Setter Property="Cursor" Value="Hand" />
+                                                            </Trigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </Grid>
+                                </Grid>
                                 
                             </Border>
 
@@ -307,23 +635,134 @@
                             </Border>
 
                         </StackPanel>
-                        <Grid Background="#F5F5FC" 
+                        <Grid Background="White" 
                               Grid.Column="1"
-                              Margin="5, 0, 0, 0">
+                              Margin="15, 0, 0, 0">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="2*" />
-                                <RowDefinition Height="3*" />
+                                <RowDefinition Height="2*" />
+                                <RowDefinition Height="2.5*" />
                             </Grid.RowDefinitions>
 
                             <Grid Grid.Row="0"
-                                  Margin="20"
+                                  Background="White"
+                                  Margin="0, 0, 0, 5">
+                                <DockPanel Margin="10, 0, 0, 0">
+                                    <TextBlock Text="Bảng Thu" 
+                                               FontFamily="../Assets/Fonts/Roboto-Bold.ttf #Roboto"/>
+                                    <Wpf:PieChart Name="donationPie"
+                                              LegendLocation="Bottom">
+                                        <Wpf:PieChart.Series>
+                                            <Wpf:PieSeries Title="Chi" 
+                                                           Values="25" 
+                                                           DataLabels="True"
+                                                           LabelPoint="{Binding PointLabel}"/>
+                                            <Wpf:PieSeries Title="Bao" 
+                                                       Values="25" 
+                                                       DataLabels="True"
+                                                       LabelPoint="{Binding PointLabel}"/>
+                                            <Wpf:PieSeries Title="Tin" 
+                                                       Values="25" 
+                                                       DataLabels="True"
+                                                       LabelPoint="{Binding PointLabel}"/>
+                                            <Wpf:PieSeries Title="Tin" 
+                                                       Values="25" 
+                                                       DataLabels="True"
+                                                       LabelPoint="{Binding PointLabel}"/>
+                                        </Wpf:PieChart.Series>
+                                    </Wpf:PieChart>
+                                </DockPanel>
+                                
+                            </Grid>
+                            <Grid Grid.Row="1"
+                                  Margin="0, 5, 0, 0"
                                   Background="White">
+                                <DockPanel Margin="10, 0, 0, 0">
+                                    <TextBlock Text="Bảng Chi"
+                                               FontFamily="../Assets/Fonts/Roboto-Bold.ttf #Roboto"/>
+                                    <Wpf:PieChart Name="expensesPie"
+                                              LegendLocation="Bottom">
+                                        <Wpf:PieChart.Series>
+                                            <Wpf:PieSeries Title="Chi" 
+                                                       Values="25" 
+                                                       DataLabels="True"
+                                                       LabelPoint="{Binding PointLabel}"/>
+                                            <Wpf:PieSeries Title="Bao" 
+                                                       Values="25" 
+                                                       DataLabels="True"
+                                                       LabelPoint="{Binding PointLabel}"/>
+                                            <Wpf:PieSeries Title="Tin" 
+                                                       Values="25" 
+                                                       DataLabels="True"
+                                                       LabelPoint="{Binding PointLabel}"/>
+                                            <Wpf:PieSeries Title="Tin" 
+                                                       Values="25" 
+                                                       DataLabels="True"
+                                                       LabelPoint="{Binding PointLabel}"/>
+                                        </Wpf:PieChart.Series>
+                                    </Wpf:PieChart>
+                                </DockPanel>
                                 
                             </Grid>
                             
-                            <Grid Grid.Row="1"
-                                  Background="White"
-                                  Margin="20, 20, 20, 20">
+                            <Grid Grid.Row="2"
+                                  >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="50" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="20" />
+                                </Grid.RowDefinitions>
+                                <DockPanel Grid.Row="0" 
+                                           Margin="10, 10, 10, 10">
+                                    <TextBlock Text="Ảnh chuyến đi"
+                                               VerticalAlignment="Center"
+                                               FontFamily="../Assets/Fonts/Roboto-Bold.ttf #Roboto"/>
+                                    <StackPanel Orientation="Horizontal"
+                                                Margin="0, 5, 0, 5"
+                                                HorizontalAlignment="Right">
+                                        <Button Padding="10, 0, 10, 0"
+                                                
+                                                Style="{StaticResource ImageBorderButton}"
+                                                >
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image Width="8"
+                                                   VerticalAlignment="Center"
+                                                   Height="8"
+                                                Source="../Assets/Images/arrowhead-thin-outline-to-the-left.png" />
+                                               
+                                            </StackPanel>
+                                            
+                                            
+                                        </Button>
+                                        <Button Padding="10, 0, 10, 0"
+                                                Margin="5, 0, 5, 0"
+                                                Style="{StaticResource ImageBorderButton}"
+                                                >
+                                            <Image Width="8"
+                                                   VerticalAlignment="Center"
+                                                   Height="8"
+                                                Source="../Assets/Images/arrow-point-to-right.png" />
+
+                                        </Button>
+                                    </StackPanel>
+                                    
+                                </DockPanel>
+                                <StackPanel Grid.Row="1"
+                                            Margin="10, 0, 10, 10">
+                                    <Image Source="../Assets/Images/Systems/1486389.jpg"/>
+
+                                </StackPanel>
+                                <DockPanel Grid.Row="2"
+                                           Margin="10, 0, 10, 0">
+                                    <TextBlock Text="Tải ảnh lên"
+                                               VerticalAlignment="Bottom"
+                                               FontFamily="../Assets/Fonts/Roboto-Italic.ttf #Roboto"/>
+                                    <Image HorizontalAlignment="Right" 
+                                           VerticalAlignment="Bottom"
+                                           Width="40"
+                                           Height="30"
+                                           Source="../Assets/Images/upload_image_1.png"/>
+                                </DockPanel>
 
                             </Grid>
                         </Grid>

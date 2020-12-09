@@ -37,6 +37,12 @@
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts.Wpf, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.Wpf.0.9.7\lib\net45\LiveCharts.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -64,6 +70,7 @@
     <Compile Include="DAO\TransportDAO.cs" />
     <Compile Include="DAO\TripDAO.cs" />
     <Compile Include="DAO\TypeTripDAO.cs" />
+    <Compile Include="DTO\Expense.cs" />
     <Compile Include="DTO\Member.cs" />
     <Compile Include="DTO\Place.cs" />
     <Compile Include="DTO\SplashData.cs" />
@@ -311,6 +318,42 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Images\add-user.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\roller.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\flag.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\project.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\hotel.png" />
+    <Resource Include="Assets\Images\island.png" />
+    <Resource Include="Assets\Images\stadium.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\calendar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\settings.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\plus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\plus_active.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\arrow-point-to-right.png" />
+    <Resource Include="Assets\Images\arrowhead-thin-outline-to-the-left.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\upload_image_1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

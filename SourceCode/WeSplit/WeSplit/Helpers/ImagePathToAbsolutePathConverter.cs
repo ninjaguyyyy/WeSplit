@@ -14,7 +14,7 @@ namespace WeSplit.Helpers
             var pathRelative = value as string;
 
             var folder = AppDomain.CurrentDomain.BaseDirectory;
-            var pathAbsolute = $"{folder}\\Assets\\Images\\Systems\\{pathRelative}";
+            var pathAbsolute = $"{folder}\\Assets\\Images\\Uploads\\{pathRelative}";
             return pathAbsolute;
 
             //throw new NotImplementedException();

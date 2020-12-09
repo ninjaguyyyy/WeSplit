@@ -67,7 +67,7 @@ namespace WeSplit.Screens
 
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            Application.Current.Shutdown();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -89,8 +89,7 @@ namespace WeSplit.Screens
         {
             var that = sender as StackPanel;
             var id = that.Tag;
-            MessageBox.Show(id.ToString());
-            var detailTripScreen = new DetailTripScreen();
+            var detailTripScreen = new DetailTripScreen(id.ToString());
             detailTripScreen.Show();
         }
 

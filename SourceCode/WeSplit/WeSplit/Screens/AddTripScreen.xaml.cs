@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WeSplit.DAO;
 using WeSplit.DTO;
+using System.Windows.Controls.Primitives;
 
 namespace WeSplit.Screens
 {
@@ -30,7 +31,10 @@ namespace WeSplit.Screens
         private Transport transportChosen;
         private string nameImage = "default_trip.jpg";
         private string fileUploadPath;
+        private string status = "progress";
         private List<Member> members = new List<Member>();
+        private List<Expense> expenses = new List<Expense>();
+        private List<Place> places = new List<Place>();
 
         public AddTripScreen()
         {
@@ -96,23 +100,43 @@ namespace WeSplit.Screens
             string name = nameTextBox.Text;
             var startDate = startDatePicker.SelectedDate;
             var endDate = endDatePicker.SelectedDate;
-            if (startDate == null || (name == "") || endDate == null)
+            if (name == "")
             {
                 MessageBox.Show("Chưa điền đầy đủ thông tin", "Lỗi");
+                return;
             }
-             
+
+            var tripEntered = new Trip()
+            {
+                Id = Guid.NewGuid().ToString(),
+                Name = name,
+                Status = status,
+                StartDate = (startDate == null)? "Chưa rõ": ((DateTime) startDate).ToString("dd/MM/yyyy"),
+                EndDate = (endDate == null) ? "Chưa rõ" : ((DateTime) endDate).ToString("dd/MM/yyyy"),
+                MainImage = nameImage,
+                Type = typeChosen,
+                Transport = transportChosen.Id,
+                Members = members,
+                Expenses = expenses,
+                Places = places
+            };
+
+            var resultAdded = TripDAO.InsertTrip(tripEntered);
+
+            MessageBox.Show("Đã thêm thành công", "Thông báo");
+
         }
 
         private void workTypeButton_Click(object sender, RoutedEventArgs e)
         {
             typeChosen = typeTrips[1];
-            this.DataContext = new { type = typeChosen };
+            this.DataContext = new { type = typeChosen, transport = transportChosen };
         }
 
         private void travelTypeButton_Click(object sender, RoutedEventArgs e)
         {
             typeChosen = typeTrips[0];
-            this.DataContext = new { type = typeChosen };
+            this.DataContext = new { type = typeChosen, transport = transportChosen };
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -122,12 +146,9 @@ namespace WeSplit.Screens
             typeChosen = typeTrips[0];
             transportChosen = transports[0];
 
-            this.DataContext = new { type = typeChosen, transport = transportChosen};
-        }
+            statusChosen.Text = "Đang đi";
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
+            this.DataContext = new { type = typeChosen, transport = transportChosen };
         }
 
         private void ChooseTransport_Button_Click(object sender, RoutedEventArgs e)
@@ -152,13 +173,15 @@ namespace WeSplit.Screens
                 fileUploadPath = op.FileName;
                 imageUploadImage.Source = new BitmapImage(new Uri(op.FileName));
                 imageUploadImage.Tag = op.SafeFileName;
+
+                nameFileTextblock.Text = op.SafeFileName;
             }
         }
 
         private void removeImage_Click(object sender, RoutedEventArgs e)
         {
             imageUploadImage.Source = new BitmapImage(new Uri("../Assets/Images/bg_upload.png", UriKind.Relative));
-            
+            nameFileTextblock.Text = "mac_dinh.png";
         }
 
         private void uploadButton_Click(object sender, RoutedEventArgs e)
@@ -179,7 +202,8 @@ namespace WeSplit.Screens
                 System.IO.File.Copy(fileUploadPath, destFile, true);
 
                 // --
-
+                nameImage = newNameFile;
+                MessageBox.Show("Đã upload thành công", "Thông báo");
             }
         }
 
@@ -206,6 +230,68 @@ namespace WeSplit.Screens
         private void editMemberButton_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void addExpenseButton_Click(object sender, RoutedEventArgs e)
+        {
+            var content = expenseContentTextbox.Text;
+            var cost = expenseCostTextbox.Text;
+
+            if(content == "" || cost == "")
+            {
+                MessageBox.Show("Dữ liệu không được để trống", "Lỗi");
+                return;
+            }
+
+            Expense expenseEntered = new Expense { Cost = cost, Name = content, Id = Guid.NewGuid().ToString() };
+
+            expenses.Add(expenseEntered);
+
+            expensesListView.ItemsSource = null;
+            expensesListView.ItemsSource = expenses;
+
+        }
+
+        private void cancelExpenseButton_Click(object sender, RoutedEventArgs e)
+        {
+            expenseContentTextbox.Text = "";
+            expenseCostTextbox.Text = "";
+        }
+
+        private void editExpenseButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void removeExpenseButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void progressStatusButton_Click(object sender, RoutedEventArgs e)
+        {
+            status = "progress";
+            statusChosen.Text = "Đang đi";
+        }
+
+        private void finishStatusButton_Click(object sender, RoutedEventArgs e)
+        {
+            status = "finish";
+            statusChosen.Text = "Đã kết thúc";
+        }
+
+        public class CustomWatermarkedDatePicker : DatePicker
+        {
+            public override void OnApplyTemplate()
+            {
+                base.OnApplyTemplate();
+
+                DatePickerTextBox box = base.GetTemplateChild("PART_TextBox") as DatePickerTextBox;
+                box.ApplyTemplate();
+
+                ContentControl watermark = box.Template.FindName("PART_Watermark", box) as ContentControl;
+                watermark.Content = "Custom Text";
+            }
         }
     }
 }

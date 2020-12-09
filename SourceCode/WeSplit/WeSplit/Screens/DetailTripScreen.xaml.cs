@@ -11,6 +11,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WeSplit.DAO;
+using WeSplit.DTO;
+using LiveCharts;
+using LiveCharts.Wpf;
 
 namespace WeSplit.Screens
 {
@@ -19,9 +23,18 @@ namespace WeSplit.Screens
     /// </summary>
     public partial class DetailTripScreen : Window
     {
-        public DetailTripScreen()
+        private string idTrip;
+        private Trip trip;
+
+        public DetailTripScreen(string id)
         {
             InitializeComponent();
+            idTrip = id;
+
+            PointLabel = chartPoint =>
+                string.Format("{0}", chartPoint.Y);
+
+            
         }
 
         private void ListViewItem_MouseEnter(object sender, MouseEventArgs e)
@@ -61,5 +74,53 @@ namespace WeSplit.Screens
         {
             Close();
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            trip = TripDAO.GetById(idTrip);
+            this.DataContext = new
+            {
+                Trip = new
+                {
+                    Name = trip.Name,
+                    StartDate = trip.StartDate,
+                    EndDate = trip.EndDate,
+                    MainImage = trip.MainImage,
+                    Transport = TransportDAO.GetById(trip.Transport),
+                    Status = trip.Status == "finish" ? "False": "True",
+                    NameButtonStatus = trip.Status == "finish" ? "Đã kết thúc" : "Kết thúc"
+                },
+                PointLabel
+            };
+        }
+
+        private void finishButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void showExpensesButton_Click(object sender, RoutedEventArgs e)
+        {
+            membersListView.Visibility = Visibility.Collapsed;
+            expensesListView.Visibility = Visibility.Visible;
+            donationsListView.Visibility = Visibility.Collapsed;
+        }
+
+        private void showDonationsButton_Click(object sender, RoutedEventArgs e)
+        {
+            membersListView.Visibility = Visibility.Collapsed;
+            expensesListView.Visibility = Visibility.Collapsed;
+            donationsListView.Visibility = Visibility.Visible;
+        }
+
+        private void showMembersButton_Click(object sender, RoutedEventArgs e)
+        {
+            membersListView.Visibility = Visibility.Visible;
+            expensesListView.Visibility = Visibility.Collapsed;
+            donationsListView.Visibility = Visibility.Collapsed;
+        }
+
+        public Func<ChartPoint, string> PointLabel { get; set; }
+
     }
 }

@@ -47,9 +47,13 @@ namespace WeSplit.DAO
                 foreach (var trip in trips)
                 {
                     Trip tripObject = new Trip();
-                    tripObject.Id = trip["id"].ToString();
-                    tripObject.Name = trip["name"].ToString();
-                    tripObject.MainImage = trip["image_main"].ToString();
+                    tripObject.Id = trip["Id"].ToString();
+                    tripObject.Name = trip["Name"].ToString();
+                    tripObject.MainImage = trip["MainImage"].ToString();
+                    tripObject.StartDate = trip["StartDate"].ToString();
+                    tripObject.EndDate = trip["EndDate"].ToString();
+                    tripObject.Transport = trip["Transport"].ToString();
+                    tripObject.Status = trip["Status"].ToString();
 
                     result.Add(tripObject);
                 }
@@ -96,6 +100,67 @@ namespace WeSplit.DAO
             }
 
             return result;
+        }
+
+        public static bool InsertTrip(Trip tripEntered)
+        {
+            var result = true;
+
+            string jsonFilePath = "./Data/trips.json";
+            var json = File.ReadAllText(jsonFilePath);
+
+            try
+            {
+                JArray trips = JArray.Parse(json);
+
+                var newTripString = Newtonsoft.Json.JsonConvert.SerializeObject(tripEntered);
+                var newTripJObject = JObject.Parse(newTripString);
+                trips.Add(newTripJObject);
+
+                string newJsonResult = Newtonsoft.Json.JsonConvert.SerializeObject(trips,
+                               Newtonsoft.Json.Formatting.Indented);
+                File.WriteAllText(jsonFilePath, newJsonResult);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return result;
+        }
+
+        public static Trip GetById(string id)
+        {
+            string jsonFilePath = "./Data/trips.json";
+            var json = File.ReadAllText(jsonFilePath);
+
+            try
+            {
+                JArray trips = JArray.Parse(json);
+
+                foreach (var trip in trips)
+                {
+                    if (trip["Id"].ToString() == id)
+                    {
+                        Trip tripObject = new Trip();
+                        tripObject.Id = trip["Id"].ToString();
+                        tripObject.Name = trip["Name"].ToString();
+                        tripObject.MainImage = trip["MainImage"].ToString();
+                        tripObject.StartDate = trip["StartDate"].ToString();
+                        tripObject.EndDate = trip["EndDate"].ToString();
+                        tripObject.Transport = trip["Transport"].ToString();
+                        tripObject.Status = trip["Status"].ToString();
+
+                        return tripObject;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return null;
         }
     }
 }
