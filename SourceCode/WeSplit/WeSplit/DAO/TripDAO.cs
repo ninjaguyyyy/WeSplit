@@ -55,6 +55,51 @@ namespace WeSplit.DAO
                     tripObject.Transport = trip["Transport"].ToString();
                     tripObject.Status = trip["Status"].ToString();
 
+                    tripObject.Members = new List<Member>();
+                    JArray Members = JArray.Parse(trip["Members"].ToString());
+                    foreach (var member in Members)
+                    {
+                        Member memberItem = new Member()
+                        {
+                            Name = member["Name"].ToString(),
+                            Id = member["Id"].ToString(),
+                            Donation = member["Donation"].ToString(),
+                            Avatar = member["Avatar"].ToString()
+                        };
+                        tripObject.Members.Add(memberItem);
+                    }
+
+                    tripObject.Expenses = new List<Expense>();
+                    JArray Expenses = JArray.Parse(trip["Expenses"].ToString());
+                    foreach (var item in Expenses)
+                    {
+                        Expense expenseItem = new Expense()
+                        {
+                            Name = item["Name"].ToString(),
+                            Id = item["Id"].ToString(),
+                            Cost = item["Cost"].ToString()
+                        };
+                        tripObject.Expenses.Add(expenseItem);
+                    }
+
+                    tripObject.Places = new List<Place>();
+                    JArray Places = JArray.Parse(trip["Places"].ToString());
+                    foreach (var item in Places)
+                    {
+                        Place placeItem = new Place()
+                        {
+                            Name = item["Name"].ToString(),
+                            Id = item["Id"].ToString(),
+                            Avatar = item["Avatar"].ToString(),
+                            Start = item["Start"].ToString(),
+                            End = item["End"].ToString(),   
+                            Address = item["Address"].ToString(),
+                            Description = item["Description"].ToString(),
+                            
+                        };
+                        tripObject.Places.Add(placeItem);
+                    }
+
                     result.Add(tripObject);
                 }
             }
@@ -151,6 +196,51 @@ namespace WeSplit.DAO
                         tripObject.Transport = trip["Transport"].ToString();
                         tripObject.Status = trip["Status"].ToString();
 
+                        tripObject.Members = new List<Member>();
+                        JArray Members = JArray.Parse(trip["Members"].ToString());
+                        foreach(var member in Members)
+                        {
+                            Member memberItem = new Member()
+                            {
+                                Name = member["Name"].ToString(),
+                                Id = member["Id"].ToString(),
+                                Donation = member["Donation"].ToString(),
+                                Avatar = member["Avatar"].ToString()
+                            };
+                            tripObject.Members.Add(memberItem);
+                        }
+
+                        tripObject.Expenses = new List<Expense>();
+                        JArray Expenses = JArray.Parse(trip["Expenses"].ToString());
+                        foreach (var item in Expenses)
+                        {
+                            Expense expenseItem = new Expense()
+                            {
+                                Name = item["Name"].ToString(),
+                                Id = item["Id"].ToString(),
+                                Cost = item["Cost"].ToString()
+                            };
+                            tripObject.Expenses.Add(expenseItem);
+                        }
+
+                        tripObject.Places = new List<Place>();
+                        JArray Places = JArray.Parse(trip["Places"].ToString());
+                        foreach (var item in Places)
+                        {
+                            Place placeItem = new Place()
+                            {
+                                Name = item["Name"].ToString(),
+                                Id = item["Id"].ToString(),
+                                Avatar = item["Avatar"].ToString(),
+                                Start = item["Start"].ToString(),
+                                End = item["End"].ToString(),
+                                Address = item["Address"].ToString(),
+                                Description = item["Description"].ToString(),
+
+                            };
+                            tripObject.Places.Add(placeItem);
+                        }
+
                         return tripObject;
                     }
                 }
@@ -162,5 +252,35 @@ namespace WeSplit.DAO
 
             return null;
         }
+
+        public static bool InsertPlaces(string idTrip, Place placeEntered)
+        {
+            var result = true;
+            string jsonFilePath = "./Data/trips.json";
+            var json = File.ReadAllText(jsonFilePath);
+
+            try
+            {
+                JArray trips = JArray.Parse(json);
+                var tripDetail = trips.FirstOrDefault(obj => obj["Id"].Value<String>() == idTrip);
+                JArray placesArrary = (JArray)tripDetail["Places"];
+
+                var newPlaceString = Newtonsoft.Json.JsonConvert.SerializeObject(placeEntered);
+                var newPlaceJObject = JObject.Parse(newPlaceString);
+                placesArrary.Add(newPlaceJObject);
+
+                string newJsonResult = Newtonsoft.Json.JsonConvert.SerializeObject(trips,
+                               Newtonsoft.Json.Formatting.Indented);
+                File.WriteAllText(jsonFilePath, newJsonResult);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return result;
+        }
+
+
     }
 }

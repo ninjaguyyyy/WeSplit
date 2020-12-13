@@ -586,7 +586,7 @@
                                                         <DatePicker Grid.Row="1"
                                                                     Name="startDatePicker"
                                                                     Grid.Column="0"
-                                                                    SelectedDateChanged="startDatePicker_SelectedDateChanged">
+                                                                    >
                                                             
                                                         </DatePicker>
                                                         <StackPanel Grid.Row="0"
@@ -602,7 +602,7 @@
                                                         
                                                         <DatePicker Grid.Row="1"
                                                                     Name="endDatePicker"
-                                                                 Grid.Column="2">
+                                                                    Grid.Column="2">
                                                             
                                                         </DatePicker>
                                                     </Grid>
@@ -919,10 +919,10 @@
                                                         <ListView.ItemTemplate>
                                                             <DataTemplate>
                                                                 <StackPanel Orientation="Horizontal">
-                                                                    <TextBlock Text="Ttieen dien"
+                                                                    <TextBlock Text="{Binding Name}"
                                                                                Width="120"
                                                                                Grid.Row="0"/>
-                                                                    <TextBlock Text="100 vnd"
+                                                                    <TextBlock Text="{Binding Cost, Converter={StaticResource money_unit}}"
                                                                                Width="80"
                                                                                Grid.Row="1"/>
                                                                     <StackPanel Grid.Row="2"
@@ -1104,7 +1104,7 @@
                                                                     BorderThickness="0"
                                                                     Style="{StaticResource add_member_btn}">
                                                                 <Button.Background>
-                                                                    <ImageBrush ImageSource="{Binding Name, Converter={StaticResource random_avatar}}" />
+                                                                    <ImageBrush ImageSource="{Binding Avatar, Converter={StaticResource relativePathConverter}}" />
                                                                 </Button.Background>
                                                             </Button>
                                                             <StackPanel Grid.Column="1">

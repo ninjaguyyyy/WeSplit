@@ -82,11 +82,6 @@ namespace WeSplit.Screens
             Application.Current.Shutdown();
         }
 
-        private void startDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var currentObject = sender as DatePicker;
-            MessageBox.Show(currentObject.SelectedDate.ToString());
-        }
 
         private void LV_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
@@ -280,18 +275,6 @@ namespace WeSplit.Screens
             statusChosen.Text = "Đã kết thúc";
         }
 
-        public class CustomWatermarkedDatePicker : DatePicker
-        {
-            public override void OnApplyTemplate()
-            {
-                base.OnApplyTemplate();
-
-                DatePickerTextBox box = base.GetTemplateChild("PART_TextBox") as DatePickerTextBox;
-                box.ApplyTemplate();
-
-                ContentControl watermark = box.Template.FindName("PART_Watermark", box) as ContentControl;
-                watermark.Content = "Custom Text";
-            }
-        }
+        
     }
 }

@@ -84,11 +84,52 @@
                 </Button.Background>
             </Button>
         </DockPanel>
-        <TextBlock Grid.Row="1"
+        <DockPanel Grid.Row="1">
+            <TextBlock 
                    Text="Thêm thành viên"
                    Margin="0, 20, 0, 20"
                    FontSize="20"
                    FontFamily="../Assets/Fonts/Roboto-Bold.ttf #Roboto"/>
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+                <TextBlock Text="avatar_man.png"
+                           Name="displayNameAvatar"
+                           VerticalAlignment="Center"
+                           Foreground="LightGray"
+                           FontSize="10"/>
+                <Image Source="../Assets/Images/man.png"
+                       Width="30"
+                       Name="manAvatarImage"
+                       MouseDown="manAvatarImage_MouseDown"
+                       Margin="10, 0, 10, 0">
+                    <Image.Style>
+                        <Style TargetType="{x:Type Image}">
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Cursor" Value="Hand" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Image.Style>
+                </Image>
+                <Image Source="../Assets/Images/woman.png"
+                       Width="30"
+                       Name="womanAvatarImage"
+                       MouseDown="womanAvatarImage_MouseDown"
+                >
+                    <Image.Style>
+                        <Style TargetType="{x:Type Image}">
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Cursor" Value="Hand" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Image.Style>
+                </Image>
+            </StackPanel>
+        </DockPanel>
+        
         <StackPanel Grid.Row="2">
             <Label Content="Họ tên"
                    FontSize="14"

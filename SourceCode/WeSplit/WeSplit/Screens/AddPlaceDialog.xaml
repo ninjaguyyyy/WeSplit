@@ -1,0 +1,381 @@
+﻿<Window x:Class="WeSplit.Screens.AddPlaceDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WeSplit.Screens" xmlns:local1="clr-namespace:WeSplit.Helpers"
+        mc:Ignorable="d"
+        Title="AddPlaceDialog" Height="450" Width="650"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None">
+
+    <Window.Resources>
+        <ImageBrush x:Key="CloseBtn_MouseOver" ImageSource="../Assets/Images/power-button_bl.png"/>
+
+        <Style x:Key="Close_btn" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="button"
+                                BorderThickness="0"
+                                Background="{TemplateBinding Background}"
+                                SnapsToDevicePixels="True">
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+                                <Setter Property="Background"
+                                        TargetName="button"
+                                        Value="{StaticResource CloseBtn_MouseOver}"/>
+                                <Setter Property="Cursor" Value="Hand"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ExpenseButton" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#00B5E2"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                CornerRadius="4"
+                                BorderThickness="1"
+                                Padding="{TemplateBinding Padding}"
+                                >
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#115293"/>
+                    <Setter Property="Cursor" Value="Hand" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <local1:ImageNameToPathRelative x:Key="relativePathConverter" ></local1:ImageNameToPathRelative>
+
+    </Window.Resources>
+
+    <Grid Margin="20, 15, 20, 15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="60" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Row="0">
+            <Image Source="../Assets/Images/add-user.png"
+                   Width="40"
+                   Height="40"/>
+            <Button x:Name="CloseBtn"
+                    DockPanel.Dock="Right"
+                    HorizontalAlignment="Right"
+                    Margin="0, -20, 0, 0"
+                    Height="20"
+                    Width="20"
+                    BorderThickness="0"
+                    Style="{StaticResource Close_btn}"
+                    Click="CloseBtn_Click">
+                <Button.Background>
+                    <ImageBrush ImageSource="../Assets/Images/power-button_red.png"/>
+                </Button.Background>
+            </Button>
+        </DockPanel>
+        <DockPanel Grid.Row="1"
+                   Margin="0, 10, 0, 0">
+            <TextBlock VerticalAlignment="Top"
+                       Text="Thêm điểm dừng"
+                       FontSize="20"
+                       FontFamily="../Assets/Fonts/Roboto-Bold.ttf #Roboto"/>
+            
+        </DockPanel>
+
+       
+        <Grid Grid.Row="2"
+              Margin="0, -10, 0, 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0"
+                        Margin="0, 0, 5, 0">
+                <Label Content="Tên điểm dừng"
+                       FontSize="14"
+                       FontFamily="../Assets/Fonts/Roboto.ttf #Roboto"/>
+                <TextBox Padding="10, 8, 10, 8"
+                         Name="namePlaceTextbox"
+                         FontSize="14">
+                    <TextBox.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="4"/>
+                            <Setter Property="BorderBrush" Value="Transparent" />
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
+
+                <Label Content="Địa chỉ"
+                       Margin="0, 10, 0, 0"
+                       FontSize="14"
+                       FontFamily="../Assets/Fonts/Roboto.ttf #Roboto"/>
+                <TextBox Padding="10, 8, 10, 8"
+                         Name="addressPlaceTextbox"
+                         FontSize="14">
+                    <TextBox.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="4"/>
+                            <Setter Property="BorderBrush" Value="Transparent" />
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
+
+                <Grid Grid.Row="3" 
+                      VerticalAlignment="Bottom"
+                      Margin="0, 10, 0, 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="35" />
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0"
+                                Orientation="Horizontal"
+                                Grid.Column="0">
+                        <Label Content="Ngày đi"
+                       FontSize="14"
+                       FontFamily="../Assets/Fonts/Roboto.ttf #Roboto"
+                />
+                        <Label Content="(mm/dd/yyy)"
+                       Foreground="#b1b1b1"
+                       FontSize="11"/>
+                    </StackPanel>
+
+                    <DatePicker Grid.Row="1"
+                                Name="startPlacePicker"
+                                VerticalAlignment="Center"
+                                Grid.Column="0"
+                                >
+                    </DatePicker>
+                    <StackPanel Grid.Row="0"
+                        Orientation="Horizontal"
+                        Grid.Column="2">
+                        <Label Content="Ngày về"
+                       FontSize="14"
+                       FontFamily="../Assets/Fonts/Roboto.ttf #Roboto"
+                />
+                        <Label Content="(mm/dd/yyy)"
+                       Foreground="#b1b1b1"
+                       FontSize="11"/>
+                    </StackPanel>
+
+                    <DatePicker Grid.Row="1"
+                                VerticalAlignment="Center"
+                                Name="endPlacePicker"
+                                Grid.Column="2">
+                    </DatePicker>
+                </Grid>
+            </StackPanel>
+            <StackPanel Grid.Column="1"
+                        Margin="5, 0, 0, 0">
+                <Label Content="Mô tả hoạt động"
+                       FontSize="14"
+                       FontFamily="../Assets/Fonts/Roboto.ttf #Roboto"/>
+                <TextBox Height="80" 
+                         Name="actionTextbox"
+                         Margin="10,0,10,0" 
+                         AcceptsReturn="True" 
+                         TextWrapping="Wrap" />
+                <Label Content="Ảnh tượng trưng"
+                       Margin="0, 10, 0, 0"
+                       FontSize="14"
+                       FontFamily="../Assets/Fonts/Roboto.ttf #Roboto"/>
+                <StackPanel Orientation="Horizontal"
+                            Margin="20, 0, 0, 0">
+                    <Image Source="{Binding Avatar_Name, Converter={StaticResource relativePathConverter}}"
+                           Width="30"
+                           Margin="0, 0, 50, 0">
+                        <Image.Style>
+                            <Style TargetType="{x:Type Image}">
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Cursor" Value="Hand" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                    </Image>
+                    <WrapPanel  Orientation="Horizontal"
+                        Width="160"
+                        HorizontalAlignment="Right">
+
+                        <Image Source="../Assets/Images/hotel.png"
+                               Width="30"
+                               Margin="5"
+                               Uid="hotel.png"
+                               MouseDown="avatarPlaceChosen">
+                            <Image.Style>
+                                <Style TargetType="{x:Type Image}">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Cursor" Value="Hand" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>
+                        <Image Source="../Assets/Images/island.png"
+                               MouseDown="avatarPlaceChosen"
+                               Width="30"
+                               Uid="island.png"
+                               Margin="5">
+                            <Image.Style>
+                                <Style TargetType="{x:Type Image}">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Cursor" Value="Hand" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>
+                        <Image Source="../Assets/Images/stadium.png"
+                               Width="30"
+                               Uid="stadium.png"
+                               MouseDown="avatarPlaceChosen"
+                               Margin="5">
+                            <Image.Style>
+                                <Style TargetType="{x:Type Image}">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Cursor" Value="Hand" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>
+                        <Image Source="../Assets/Images/fuji-mountain.png"
+                               Width="30"
+                               Uid="fuji-mountain.png"
+                               MouseDown="avatarPlaceChosen"
+                               Margin="5">
+                            <Image.Style>
+                                <Style TargetType="{x:Type Image}">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Cursor" Value="Hand" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>
+                        <Image Source="../Assets/Images/food-store.png"
+                               Width="30"
+                               Uid="food-store.png"
+                               MouseDown="avatarPlaceChosen"
+                               Margin="5">
+                            <Image.Style>
+                                <Style TargetType="{x:Type Image}">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Cursor" Value="Hand" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>
+                        <Image Source="../Assets/Images/flat.png"
+                               Width="30"
+                               Uid="flat.png"
+                               MouseDown="avatarPlaceChosen"
+                               Margin="5">
+                            <Image.Style>
+                                <Style TargetType="{x:Type Image}">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Cursor" Value="Hand" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>
+                        <Image Source="../Assets/Images/pagoda.png"
+                               Width="30"
+                               Uid="pagoda.png"
+                               MouseDown="avatarPlaceChosen"
+                               Margin="5">
+                            <Image.Style>
+                                <Style TargetType="{x:Type Image}">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Cursor" Value="Hand" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>
+                        <Image Source="../Assets/Images/sphinx.png"
+                               Width="30"
+                               Uid="sphinx.png"
+                               MouseDown="avatarPlaceChosen"
+                               Margin="5">
+                            <Image.Style>
+                                <Style TargetType="{x:Type Image}">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Cursor" Value="Hand" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>
+                    </WrapPanel>
+                </StackPanel>
+
+                
+            </StackPanel>
+            
+        </Grid>
+        
+        
+
+    <StackPanel Grid.Row="3" 
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+            <Button Content="Hủy"
+                    FontSize="17"
+                    Click="CloseBtn_Click"
+                    Margin="0, 0, 5, 0"
+                    FontFamily="../Assets/Fonts/Roboto.ttf #Roboto"
+                    VerticalAlignment="Center"
+                    BorderBrush="#b1b1b1"
+                    Background="Transparent"
+                    Padding="20, 8, 20, 8">
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="4"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button Content="Xác nhận" 
+                    FontSize="17"
+                    Name="submitButton"
+                    Click="submitButton_Click"
+                    FontFamily="../Assets/Fonts/Roboto.ttf #Roboto"
+                    Foreground="White"
+                    VerticalAlignment="Center"
+                    BorderBrush="Transparent"
+                    Padding="20, 8, 20, 8"
+                    Style="{StaticResource ExpenseButton}">
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>

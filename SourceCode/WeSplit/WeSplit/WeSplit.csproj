@@ -86,6 +86,9 @@
     <Compile Include="Screens\AddMemberDialog.xaml.cs">
       <DependentUpon>AddMemberDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Screens\AddPlaceDialog.xaml.cs">
+      <DependentUpon>AddPlaceDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Screens\AddTripScreen.xaml.cs">
       <DependentUpon>AddTripScreen.xaml</DependentUpon>
     </Compile>
@@ -104,6 +107,10 @@
       <DependentUpon>SplashScreen.xaml</DependentUpon>
     </Compile>
     <Page Include="Screens\AddMemberDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Screens\AddPlaceDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -354,6 +361,28 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Images\upload_image_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\edit.png" />
+    <Resource Include="Assets\Images\rubbish-bin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\resort.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\food-store.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\flat.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\pagoda.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\sphinx.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\fuji-mountain.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -34,6 +34,29 @@ namespace WeSplit.Screens
             PointLabel = chartPoint =>
                 string.Format("{0}", chartPoint.Y);
 
+
+            SeriesCollection = new SeriesCollection
+            {
+                new ColumnSeries
+                {
+                    Title = "2015",
+                    Values = new ChartValues<double> { 10, 50, 39, 50 }
+                }
+            };
+
+            //adding series will update and animate the chart automatically
+            SeriesCollection.Add(new ColumnSeries
+            {
+                Title = "2016",
+                Values = new ChartValues<double> { 11, 56, 42 }
+            });
+
+            //also adding values updates and animates the chart automatically
+            SeriesCollection[1].Values.Add(48d);
+
+            Labels = new[] { "Maria", "Susan", "Charles", "Frida" };
+            Formatter = value => value.ToString("N");
+
             
         }
 
@@ -90,8 +113,14 @@ namespace WeSplit.Screens
                     Status = trip.Status == "finish" ? "False": "True",
                     NameButtonStatus = trip.Status == "finish" ? "Đã kết thúc" : "Kết thúc"
                 },
-                PointLabel
+                PointLabel,
+                SeriesCollection
             };
+
+            membersListView.ItemsSource = trip.Members;
+            expensesListView.ItemsSource = trip.Expenses;
+            donationsListView.ItemsSource = trip.Members;
+            placesListView.ItemsSource = trip.Places;
         }
 
         private void finishButton_Click(object sender, RoutedEventArgs e)
@@ -121,6 +150,30 @@ namespace WeSplit.Screens
         }
 
         public Func<ChartPoint, string> PointLabel { get; set; }
+        public SeriesCollection SeriesCollection { get; set; }
+        public string[] Labels { get; set; }
+        public Func<double, string> Formatter { get; set; }
 
+        private void addPlaceButton_Click(object sender, RoutedEventArgs e)
+        {
+            var addPlaceDialog = new AddPlaceDialog();
+
+            if (addPlaceDialog.ShowDialog() == true)
+            {
+                var newplace = addPlaceDialog.NewPlace;
+                if (trip.Places == null)
+                {
+                    trip.Places = new List<Place>();
+                }
+                trip.Places.Add(newplace);
+
+                placesListView.ItemsSource = null;
+                placesListView.ItemsSource = trip.Places;
+
+                TripDAO.InsertPlaces(idTrip, newplace);
+            }
+
+
+        }
     }
 }

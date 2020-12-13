@@ -21,6 +21,7 @@ namespace WeSplit.Screens
     public partial class AddMemberDialog : Window
     {
         public Member NewMember = new Member();
+        private string avatarEntered = "man.png";
 
         public AddMemberDialog()
         {
@@ -47,7 +48,20 @@ namespace WeSplit.Screens
             NewMember.Id = Guid.NewGuid().ToString();
             NewMember.Name = name;
             NewMember.Donation = donate;
+            NewMember.Avatar = avatarEntered;
             DialogResult = true;
+        }
+
+        private void manAvatarImage_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            displayNameAvatar.Text = "avatar_man.png";
+            avatarEntered = "man.png";
+        }
+
+        private void womanAvatarImage_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            displayNameAvatar.Text = "avatar_woman.png";
+            avatarEntered = "woman.png";
         }
     }
 }
