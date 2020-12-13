@@ -800,25 +800,9 @@
                                                DockPanel.Dock="Top"
                                                FontFamily="../Assets/Fonts/Roboto-Bold.ttf #Roboto"/>
                                     <Wpf:PieChart Name="donationPie"
-                                              LegendLocation="Bottom">
-                                        <Wpf:PieChart.Series>
-                                            <Wpf:PieSeries Title="Chi" 
-                                                           Values="25" 
-                                                           DataLabels="True"
-                                                           LabelPoint="{Binding PointLabel}"/>
-                                            <Wpf:PieSeries Title="Bao" 
-                                                       Values="25" 
-                                                       DataLabels="True"
-                                                       LabelPoint="{Binding PointLabel}"/>
-                                            <Wpf:PieSeries Title="Tin" 
-                                                       Values="25" 
-                                                       DataLabels="True"
-                                                       LabelPoint="{Binding PointLabel}"/>
-                                            <Wpf:PieSeries Title="Tin" 
-                                                       Values="25" 
-                                                       DataLabels="True"
-                                                       LabelPoint="{Binding PointLabel}"/>
-                                        </Wpf:PieChart.Series>
+                                                  LegendLocation="Bottom"
+                                                  >
+                                        
                                     </Wpf:PieChart>
                                 </DockPanel>
                                 
@@ -830,14 +814,11 @@
                                     <TextBlock Text="Bảng Chi"
                                                DockPanel.Dock="Top"
                                                FontFamily="../Assets/Fonts/Roboto-Bold.ttf #Roboto"/>
-                                    <Wpf:CartesianChart Series="{Binding SeriesCollection}" LegendLocation="Left">
-                                        <Wpf:CartesianChart.AxisX>
-                                            <Wpf:Axis Title="Salesman" Labels="{Binding Labels}"></Wpf:Axis>
-                                        </Wpf:CartesianChart.AxisX>
-                                        <Wpf:CartesianChart.AxisY>
-                                            <Wpf:Axis Title="Sold Apps" LabelFormatter="{Binding Formatter}"></Wpf:Axis>
-                                        </Wpf:CartesianChart.AxisY>
-                                    </Wpf:CartesianChart>
+                                    <Wpf:PieChart Name="costPie"
+                                                  LegendLocation="None"
+                                                  >
+
+                                    </Wpf:PieChart>
                                 </DockPanel>
                                 
                             </Grid>

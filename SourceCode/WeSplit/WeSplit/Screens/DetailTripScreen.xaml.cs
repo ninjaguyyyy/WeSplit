@@ -15,6 +15,7 @@ using WeSplit.DAO;
 using WeSplit.DTO;
 using LiveCharts;
 using LiveCharts.Wpf;
+using LiveCharts.Helpers;
 
 namespace WeSplit.Screens
 {
@@ -121,6 +122,46 @@ namespace WeSplit.Screens
             expensesListView.ItemsSource = trip.Expenses;
             donationsListView.ItemsSource = trip.Members;
             placesListView.ItemsSource = trip.Places;
+
+            DisplayDonationChart();
+            DisplayCostChart();
+
+        }
+
+        private void DisplayDonationChart()
+        {
+            SeriesCollection series = new SeriesCollection();
+            foreach (var member in trip.Members)
+            {
+                int donation = int.Parse(member.Donation);
+                PieSeries pieSeries = new PieSeries
+                {
+                    Title = member.Name,
+                    Values = new ChartValues<int> { donation },
+                    DataLabels = true,
+                    LabelPoint = PointLabel
+                };
+                series.Add(pieSeries);
+            }
+            donationPie.Series = series;
+        }
+
+        private void DisplayCostChart()
+        {
+            SeriesCollection series = new SeriesCollection();
+            foreach (var expense in trip.Expenses)
+            {
+                int cost = int.Parse(expense.Cost);
+                PieSeries pieSeries = new PieSeries
+                {
+                    Title = expense.Name,
+                    Values = new ChartValues<int> { cost },
+                    DataLabels = true,
+                    LabelPoint = PointLabel
+                };
+                series.Add(pieSeries);
+            }
+            costPie.Series = series;
         }
 
         private void finishButton_Click(object sender, RoutedEventArgs e)
