@@ -26,6 +26,15 @@ namespace WeSplit.Screens
         public AddMemberDialog()
         {
             InitializeComponent();
+            System.Diagnostics.Debug.WriteLine("aa");
+        }
+
+        public AddMemberDialog(Member member)
+        {
+            InitializeComponent();
+            NewMember = member;
+            DataContext = NewMember;
+            avatarEntered = NewMember.Avatar;
         }
 
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
@@ -45,7 +54,11 @@ namespace WeSplit.Screens
                 return;
             }
 
-            NewMember.Id = Guid.NewGuid().ToString();
+            if(NewMember.Id == null)
+            {
+                NewMember.Id = Guid.NewGuid().ToString();
+            }
+            
             NewMember.Name = name;
             NewMember.Donation = donate;
             NewMember.Avatar = avatarEntered;

@@ -101,6 +101,15 @@ namespace WeSplit.Screens
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+
+            DisplayDetail();
+            DisplayDonationChart();
+            DisplayCostChart();
+
+        }
+
+        private void DisplayDetail()
+        {
             trip = TripDAO.GetById(idTrip);
             this.DataContext = new
             {
@@ -111,7 +120,7 @@ namespace WeSplit.Screens
                     EndDate = trip.EndDate,
                     MainImage = trip.MainImage,
                     Transport = TransportDAO.GetById(trip.Transport),
-                    Status = trip.Status == "finish" ? "False": "True",
+                    Status = trip.Status == "finish" ? "False" : "True",
                     NameButtonStatus = trip.Status == "finish" ? "Đã kết thúc" : "Kết thúc"
                 },
                 PointLabel,
@@ -122,10 +131,6 @@ namespace WeSplit.Screens
             expensesListView.ItemsSource = trip.Expenses;
             donationsListView.ItemsSource = trip.Members;
             placesListView.ItemsSource = trip.Places;
-
-            DisplayDonationChart();
-            DisplayCostChart();
-
         }
 
         private void DisplayDonationChart()
@@ -215,6 +220,34 @@ namespace WeSplit.Screens
             }
 
 
+        }
+
+        private void deleteMemberButton_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var idMember = ((Image)sender).Uid;
+            TripDAO.RemoveMember(idTrip, idMember);
+            DisplayDetail();
+            MessageBox.Show("Đã xóa thành viên thành công.", "Thông báo");
+
+        }
+
+        private void editMemberButton_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var idMember = ((Image)sender).Uid;
+            var memberCurrent = TripDAO.GetMemberById(idTrip, idMember);
+
+            var addMemberDialog = new AddMemberDialog(memberCurrent);
+
+            if (addMemberDialog.ShowDialog() == true)
+            {
+                var newMember = addMemberDialog.NewMember;
+
+                TripDAO.RemoveMember(idTrip, idMember);
+                TripDAO.InsertMember(idTrip, newMember);
+                DisplayDetail();
+                DisplayDonationChart();
+                MessageBox.Show("Đã cập nhật thành công!");
+            }
         }
     }
 }

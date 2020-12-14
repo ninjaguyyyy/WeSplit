@@ -366,7 +366,7 @@
                                         </Button.ToolTip>
                                     </Button>
                                 </StackPanel>
-                                <StackPanel Background="Black" Grid.Column="1"></StackPanel>
+                                <StackPanel Background="#d2d2d2" Grid.Column="1"></StackPanel>
                                 <StackPanel Grid.Column="2">
                                     <Image Source="{Binding Trip.MainImage, Converter={StaticResource converter}}" 
                                            Margin="10, 5, 0, 5"/>
@@ -474,12 +474,38 @@
                                                 <StackPanel HorizontalAlignment="Right"
                                                         Orientation="Horizontal">
                                                     <Image Source="../Assets/Images/edit.png"
-                                                       Width="15"
-                                                       Margin="0, 0, 10, 0"
-                                                       Height="15"/>
+                                                           Width="15"
+                                                           Name="editMemberButton"
+                                                           Uid="{Binding Id}"
+                                                           MouseDown="editMemberButton_MouseDown"
+                                                           Margin="0, 0, 10, 0"
+                                                           Height="15">
+                                                        <Image.Style>
+                                                            <Style TargetType="{x:Type Image}">
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Cursor" Value="Hand" />
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Image.Style>
+                                                    </Image>
                                                     <Image Source="../Assets/Images/rubbish-bin.png"
-                                                       Width="15"
-                                                       Height="15"/>
+                                                           Width="15"
+                                                           Uid="{Binding Id}"
+                                                           Name="deleteMemberButton"
+                                                           MouseDown="deleteMemberButton_MouseDown"
+                                                           Height="15">
+                                                        <Image.Style>
+                                                            <Style TargetType="{x:Type Image}">
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Cursor" Value="Hand" />
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Image.Style>
+                                                    </Image>
                                                 </StackPanel>
                                             </StackPanel>
                                         </DataTemplate>
@@ -886,7 +912,7 @@
                         </Grid>
 
                     </Grid>
-                    <StackPanel Background="Black" Grid.Column="1" />
+                    <StackPanel Background="#d2d2d2" Grid.Column="1" />
                 </Grid>
 
                 

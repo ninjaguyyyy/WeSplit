@@ -136,6 +136,7 @@
                    FontFamily="../Assets/Fonts/Roboto.ttf #Roboto"/>
             <TextBox Padding="10, 8, 10, 8"
                      Name="nameTextBox"
+                     Text="{Binding Name}"
                      FontSize="14">
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">
@@ -152,6 +153,7 @@
                    FontFamily="../Assets/Fonts/Roboto.ttf #Roboto"/>
             <TextBox Padding="10, 8, 10, 8"
                      Name="donateTextbox"
+                     Text="{Binding Donation}"
                      FontSize="14">
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">

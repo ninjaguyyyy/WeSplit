@@ -281,6 +281,91 @@ namespace WeSplit.DAO
             return result;
         }
 
+        public static bool InsertMember(string idTrip, Member memberEntered)
+        {
+            var result = true;
+            string jsonFilePath = "./Data/trips.json";
+            var json = File.ReadAllText(jsonFilePath);
+
+            try
+            {
+                JArray trips = JArray.Parse(json);
+                var tripDetail = trips.FirstOrDefault(obj => obj["Id"].Value<String>() == idTrip);
+                JArray memberArrary = (JArray)tripDetail["Members"];
+
+                var newMemberString = Newtonsoft.Json.JsonConvert.SerializeObject(memberEntered);
+                var newMemberJObject = JObject.Parse(newMemberString);
+                memberArrary.Add(newMemberJObject);
+
+                string newJsonResult = Newtonsoft.Json.JsonConvert.SerializeObject(trips,
+                               Newtonsoft.Json.Formatting.Indented);
+                File.WriteAllText(jsonFilePath, newJsonResult);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return result;
+        }
+
+        public static bool RemoveMember(string idTrip, string idMember)
+        {
+            var result = true;
+
+            string jsonFilePath = "./Data/trips.json";
+            var json = File.ReadAllText(jsonFilePath);
+
+            try
+            {
+                JArray trips = JArray.Parse(json);
+                var tripDetail = trips.FirstOrDefault(obj => obj["Id"].Value<String>() == idTrip);
+                JArray membersArray = (JArray)tripDetail["Members"];
+
+                var memberToDelete = membersArray.FirstOrDefault(obj => obj["Id"].Value<string>() == idMember);
+                membersArray.Remove(memberToDelete);
+
+                string newJsonResult = Newtonsoft.Json.JsonConvert.SerializeObject(trips,
+                               Newtonsoft.Json.Formatting.Indented);
+                File.WriteAllText(jsonFilePath, newJsonResult);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return result;
+        }
+
+        public static Member GetMemberById(string idTrip, string idMember)
+        {
+            var result = new Member();
+
+            string jsonFilePath = "./Data/trips.json";
+            var json = File.ReadAllText(jsonFilePath);
+
+            try
+            {
+                JArray trips = JArray.Parse(json);
+                var tripDetail = trips.FirstOrDefault(obj => obj["Id"].Value<String>() == idTrip);
+                JArray membersArray = (JArray)tripDetail["Members"];
+
+                var memberToGet = membersArray.FirstOrDefault(obj => obj["Id"].Value<string>() == idMember);
+                result.Id = memberToGet["Id"].ToString();
+                result.Name = memberToGet["Name"].ToString();
+                result.Avatar = memberToGet["Avatar"].ToString();
+                result.Donation = memberToGet["Donation"].ToString();
+
+
+                
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return result;
+        }
 
     }
 }
