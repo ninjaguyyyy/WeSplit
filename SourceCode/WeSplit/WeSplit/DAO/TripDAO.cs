@@ -309,6 +309,39 @@ namespace WeSplit.DAO
             return result;
         }
 
+        public static Place GetPlaceById(string idTrip, string idPlace)
+        {
+            var result = new Place();
+
+            string jsonFilePath = "./Data/trips.json";
+            var json = File.ReadAllText(jsonFilePath);
+
+            try
+            {
+                JArray trips = JArray.Parse(json);
+                var tripDetail = trips.FirstOrDefault(obj => obj["Id"].Value<String>() == idTrip);
+                JArray placesArray = (JArray)tripDetail["Places"];
+
+                var placeToGet = placesArray.FirstOrDefault(obj => obj["Id"].Value<string>() == idPlace);
+                result.Id = placeToGet["Id"].ToString();
+                result.Name = placeToGet["Name"].ToString();
+                result.Avatar = placeToGet["Avatar"].ToString();
+                result.Address = placeToGet["Address"].ToString();
+                result.Description = placeToGet["Description"].ToString();
+                result.Start = placeToGet["Start"].ToString();
+                result.End = placeToGet["End"].ToString();
+
+
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return result;
+        }
+
         public static bool InsertMember(string idTrip, Member memberEntered)
         {
             var result = true;

@@ -28,10 +28,7 @@ namespace WeSplit.Screens
         public AddPlaceDialog()
         {
             InitializeComponent();
-            this.DataContext = new
-            {
-                Avatar_Name = avatar_name
-            };
+            
         }
 
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
@@ -61,7 +58,11 @@ namespace WeSplit.Screens
             NewPlace.Name = name;
             NewPlace.Address = address;
             NewPlace.Description = description;
-            NewPlace.Id = Guid.NewGuid().ToString();
+            if(NewPlace.Id == null)
+            {
+                NewPlace.Id = Guid.NewGuid().ToString();
+            }
+            
             NewPlace.Avatar = avatar_name;
 
             DialogResult = true;
@@ -72,10 +73,30 @@ namespace WeSplit.Screens
         {
             var imageObject = sender as Image;
             avatar_name = imageObject.Uid;
+
+            var relativePath = "../Assets/Images/" + avatar_name;
+
+            var uriSource = new Uri(relativePath, UriKind.Relative);
+            avatarChosenImage.Source = new BitmapImage(uriSource);
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
             this.DataContext = new
             {
-                Avatar_Name = avatar_name
+                Avatar_Name = avatar_name,
+                Place = NewPlace
             };
+
+            if(NewPlace.Avatar != null)
+            {
+                avatar_name = NewPlace.Avatar;
+            }
+
+            var relativePath = "../Assets/Images/" + avatar_name;
+
+            var uriSource = new Uri(relativePath, UriKind.Relative);
+            avatarChosenImage.Source = new BitmapImage(uriSource);
         }
     }
 }

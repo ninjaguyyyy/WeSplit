@@ -707,16 +707,16 @@
                                                             </StackPanel>
                                                     </DockPanel>
                                                     <TextBlock Grid.Row="1"
-                                                   Foreground="#61B3FF"
-                                                   FontSize="8"
-                                                   FontFamily="../Assets/Fonts/Roboto-Bold.ttf #Roboto"
-                                                   Text="Quận 9, TP.HCM"
-                                        />
+                                                               Foreground="#61B3FF"
+                                                               FontSize="8"
+                                                               FontFamily="../Assets/Fonts/Roboto-Bold.ttf #Roboto"
+                                                               Text="{Binding Address}"
+                                                    />
                                                     <TextBlock Text="Ho Chi Minh City haittlerencultud political groups. Originally a trading port city of"
-                                                   FontSize="10"
-                                                   Grid.Row="2"
-                                                   TextWrapping="Wrap"
-                                                   FontFamily="../Assets/Fonts/Roboto-Regular.ttf #Roboto"/>
+                                                               FontSize="10"
+                                                               Grid.Row="2"
+                                                               TextWrapping="Wrap"
+                                                               FontFamily="../Assets/Fonts/Roboto-Regular.ttf #Roboto"/>
                                                     <StackPanel Grid.Row="3"
                                                     Orientation="Horizontal"
                                                     VerticalAlignment="Bottom">
@@ -733,8 +733,11 @@
                                                    Width="14"
                                                    Margin="15, 0, 5, 0"/>
                                                         <TextBlock Text="Sửa"
-                                                       VerticalAlignment="Center"
+                                                                   VerticalAlignment="Center"
                                                        FontSize="10"
+                                                                   Name="editPlaceBtn"
+                                                                   Uid="{Binding Id}"
+                                                                   MouseDown="editPlaceBtn_MouseDown"
                                                        TextDecorations="Underline"
                                                        Margin="0, 0, 5, 0"
                                                        FontFamily="../Assets/Fonts/Roboto-Bold.ttf #Roboto">

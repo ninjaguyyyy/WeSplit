@@ -273,5 +273,24 @@ namespace WeSplit.Screens
             DisplayDetail();
             MessageBox.Show("Đã xóa điểm dừng thành công.", "Thông báo");
         }
+
+        private void editPlaceBtn_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var idPlace = ((TextBlock)sender).Uid;
+            var placeCurrent = TripDAO.GetPlaceById(idTrip, idPlace);
+
+            var addPlaceDialog = new AddPlaceDialog();
+            addPlaceDialog.NewPlace = placeCurrent;
+
+            if (addPlaceDialog.ShowDialog() == true)
+            {
+                var newPlace = addPlaceDialog.NewPlace;
+
+                TripDAO.RemovePlace(idTrip, idPlace);
+                TripDAO.InsertPlaces(idTrip, newPlace);
+                DisplayDetail();
+                MessageBox.Show("Đã cập nhật thành công!");
+            }
+        }
     }
 }
