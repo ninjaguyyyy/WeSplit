@@ -750,10 +750,13 @@
                                                             </TextBlock.Style>
                                                         </TextBlock>
                                                         <TextBlock Text="Xóa"
-                                                       TextDecorations="Underline"
-                                                       VerticalAlignment="Center"
-                                                       FontSize="10"
-                                                       FontFamily="../Assets/Fonts/Roboto-Bold.ttf #Roboto">
+                                                                   Name="removePlaceBtn"
+                                                                   Uid="{Binding Id}"
+                                                                   MouseDown="removePlaceBtn_MouseDown"
+                                                                   TextDecorations="Underline"
+                                                                   VerticalAlignment="Center"
+                                                                   FontSize="10"
+                                                                   FontFamily="../Assets/Fonts/Roboto-Bold.ttf #Roboto">
                                                             <TextBlock.Style>
                                                                 <Style TargetType="TextBlock">
                                                                     <Style.Triggers>

@@ -281,6 +281,34 @@ namespace WeSplit.DAO
             return result;
         }
 
+        public static bool RemovePlace(string idTrip, string idPlace)
+        {
+            var result = true;
+
+            string jsonFilePath = "./Data/trips.json";
+            var json = File.ReadAllText(jsonFilePath);
+
+            try
+            {
+                JArray trips = JArray.Parse(json);
+                var tripDetail = trips.FirstOrDefault(obj => obj["Id"].Value<String>() == idTrip);
+                JArray placessArray = (JArray)tripDetail["Places"];
+
+                var placeToDelete = placessArray.FirstOrDefault(obj => obj["Id"].Value<string>() == idPlace);
+                placessArray.Remove(placeToDelete);
+
+                string newJsonResult = Newtonsoft.Json.JsonConvert.SerializeObject(trips,
+                               Newtonsoft.Json.Formatting.Indented);
+                File.WriteAllText(jsonFilePath, newJsonResult);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return result;
+        }
+
         public static bool InsertMember(string idTrip, Member memberEntered)
         {
             var result = true;

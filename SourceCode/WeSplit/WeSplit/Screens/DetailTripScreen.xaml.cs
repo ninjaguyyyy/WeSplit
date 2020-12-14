@@ -265,5 +265,13 @@ namespace WeSplit.Screens
                 
             }
         }
+
+        private void removePlaceBtn_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var idPlace = ((TextBlock)sender).Uid;
+            TripDAO.RemovePlace(idTrip, idPlace);
+            DisplayDetail();
+            MessageBox.Show("Đã xóa điểm dừng thành công.", "Thông báo");
+        }
     }
 }
