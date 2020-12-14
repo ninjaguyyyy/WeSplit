@@ -249,5 +249,21 @@ namespace WeSplit.Screens
                 MessageBox.Show("Đã cập nhật thành công!");
             }
         }
+
+        private void addMemberButton_Click(object sender, RoutedEventArgs e)
+        {
+            var addMemberDialog = new AddMemberDialog();
+
+            if (addMemberDialog.ShowDialog() == true)
+            {
+                var newMember = addMemberDialog.NewMember;
+                
+                trip.Members.Add(newMember);
+                TripDAO.InsertMember(idTrip, newMember);
+                DisplayDetail();
+                DisplayDonationChart();
+                
+            }
+        }
     }
 }

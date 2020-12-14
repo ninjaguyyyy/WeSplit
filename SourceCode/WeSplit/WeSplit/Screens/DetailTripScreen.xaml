@@ -595,6 +595,8 @@
                                            Text="Mời thành viên cùng tham gia chuyến đi" />
                                 <Button Content="Mời thành viên"
                                         Width="100"
+                                        Name="addMemberButton"
+                                        Click="addMemberButton_Click"
                                         FontSize="11"
                                         Foreground="White"
                                         Padding="10, 8, 10, 8"
