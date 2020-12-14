@@ -829,31 +829,66 @@
                             <Grid Grid.Row="0"
                                   Background="White"
                                   Margin="0, 0, 0, 5">
-                                <DockPanel Margin="10, 0, 0, 0">
-                                    <TextBlock Text="Bảng Thu" 
+                                <Grid Margin="10, 0, 0, 0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="20"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid Height="20"
+                                          Grid.Row="0">
+                                        <TextBlock Text="Bảng Thu" 
                                                DockPanel.Dock="Top"
                                                FontFamily="../Assets/Fonts/Roboto-Bold.ttf #Roboto"/>
+                                        
+                                    </Grid>
+                                    
                                     <Wpf:PieChart Name="donationPie"
+                                                  Grid.Row="1"
                                                   LegendLocation="Bottom"
                                                   >
                                         
                                     </Wpf:PieChart>
-                                </DockPanel>
+                                </Grid>
                                 
                             </Grid>
                             <Grid Grid.Row="1"
                                   Margin="0, 5, 0, 0"
                                   Background="White">
-                                <DockPanel Margin="10, 0, 0, 0">
-                                    <TextBlock Text="Bảng Chi"
+                                <Grid Margin="10, 0, 0, 0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="20"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid Grid.Row="0">
+                                        <TextBlock Text="Bảng Chi"
                                                DockPanel.Dock="Top"
                                                FontFamily="../Assets/Fonts/Roboto-Bold.ttf #Roboto"/>
+                                        <Image Source="../Assets/Images/add.png"
+                                               Width="20"
+                                               Name="addExpenseBtn"
+                                               MouseDown="addExpenseBtn_MouseDown"
+                                               DockPanel.Dock="Right"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Right">
+                                            <Image.Style>
+                                                <Style TargetType="{x:Type Image}">
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="Cursor" Value="Hand" />
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Image.Style>
+                                        </Image>
+                                    </Grid>
+                                    
                                     <Wpf:PieChart Name="costPie"
+                                                  Grid.Row="1"
                                                   LegendLocation="None"
                                                   >
 
                                     </Wpf:PieChart>
-                                </DockPanel>
+                                </Grid>
                                 
                             </Grid>
                             

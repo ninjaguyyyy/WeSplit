@@ -71,7 +71,7 @@
             <RowDefinition Height="40" />
         </Grid.RowDefinitions>
         <DockPanel Grid.Row="0">
-            <Image Source="../Assets/Images/add-user.png"
+            <Image Source="../Assets/Images/hot-air-balloon.png"
                    Width="40"
                    Height="40"/>
             <Button x:Name="CloseBtn"

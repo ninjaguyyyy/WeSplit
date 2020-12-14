@@ -292,5 +292,20 @@ namespace WeSplit.Screens
                 MessageBox.Show("Đã cập nhật thành công!");
             }
         }
+
+        private void addExpenseBtn_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var addExpenseDialog = new AddExpenseDialog();
+
+            if (addExpenseDialog.ShowDialog() == true)
+            {
+                var newExpense = addExpenseDialog.NewExpense;
+                trip.Expenses.Add(newExpense);
+
+                TripDAO.InsertExpense(idTrip, newExpense);
+                DisplayDetail();
+                DisplayCostChart();
+            }
+        }
     }
 }

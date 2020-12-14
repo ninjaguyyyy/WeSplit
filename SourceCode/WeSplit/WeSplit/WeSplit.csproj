@@ -83,6 +83,9 @@
     <Compile Include="Helpers\MoneyUnitConverter.cs" />
     <Compile Include="Helpers\RandomAvatarConverter.cs" />
     <Compile Include="Helpers\SearchHelper.cs" />
+    <Compile Include="Screens\AddExpenseDialog.xaml.cs">
+      <DependentUpon>AddExpenseDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Screens\AddMemberDialog.xaml.cs">
       <DependentUpon>AddMemberDialog.xaml</DependentUpon>
     </Compile>
@@ -106,6 +109,10 @@
     <Compile Include="Screens\SplashScreen.xaml.cs">
       <DependentUpon>SplashScreen.xaml</DependentUpon>
     </Compile>
+    <Page Include="Screens\AddExpenseDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Screens\AddMemberDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -383,6 +390,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Images\fuji-mountain.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\hot-air-balloon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
