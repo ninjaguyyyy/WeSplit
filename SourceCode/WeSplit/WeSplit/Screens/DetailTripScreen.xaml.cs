@@ -29,6 +29,8 @@ namespace WeSplit.Screens
         private Trip trip;
         private int index_showImage = 0;
         private int index_max;
+        private int totalExpense;
+        private int totalDonation;
 
         public DetailTripScreen(string id)
         {
@@ -103,7 +105,11 @@ namespace WeSplit.Screens
                 imageToShow = trip.Images[index_showImage];
                 index_max = trip.Images.Count - 1;
             }
-            
+
+            totalTextBlock.Text = trip.Members.Count + " t.viên";
+            totalExpense = trip.Expenses.Sum(item => int.Parse(item.Cost));
+            totalDonation = trip.Members.Sum(item => int.Parse(item.Donation));
+
             this.DataContext = new
             {
                 Trip = new
@@ -118,13 +124,15 @@ namespace WeSplit.Screens
                 },
                 PointLabel,
                 SeriesCollection,
-                ImageToShow = imageToShow
+                ImageToShow = imageToShow,
             };
 
             membersListView.ItemsSource = trip.Members;
             expensesListView.ItemsSource = trip.Expenses;
             donationsListView.ItemsSource = trip.Members;
             placesListView.ItemsSource = trip.Places;
+
+            
         }
 
         private void DisplayDonationChart()
@@ -173,6 +181,8 @@ namespace WeSplit.Screens
             membersListView.Visibility = Visibility.Collapsed;
             expensesListView.Visibility = Visibility.Visible;
             donationsListView.Visibility = Visibility.Collapsed;
+
+            totalTextBlock.Text = totalExpense + " vnđ";
         }
 
         private void showDonationsButton_Click(object sender, RoutedEventArgs e)
@@ -180,6 +190,8 @@ namespace WeSplit.Screens
             membersListView.Visibility = Visibility.Collapsed;
             expensesListView.Visibility = Visibility.Collapsed;
             donationsListView.Visibility = Visibility.Visible;
+
+            totalTextBlock.Text = totalDonation + " vnđ";
         }
 
         private void showMembersButton_Click(object sender, RoutedEventArgs e)
@@ -187,7 +199,11 @@ namespace WeSplit.Screens
             membersListView.Visibility = Visibility.Visible;
             expensesListView.Visibility = Visibility.Collapsed;
             donationsListView.Visibility = Visibility.Collapsed;
+
+            totalTextBlock.Text = trip.Members.Count + " t.viên";
         }
+
+        
 
         public Func<ChartPoint, string> PointLabel { get; set; }
         public SeriesCollection SeriesCollection { get; set; }
@@ -384,5 +400,7 @@ namespace WeSplit.Screens
                 DisplayDetail();
             }
         }
+
+        
     }
 }

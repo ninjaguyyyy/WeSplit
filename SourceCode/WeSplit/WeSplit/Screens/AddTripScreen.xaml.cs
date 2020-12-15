@@ -221,12 +221,12 @@ namespace WeSplit.Screens
 
         private void removeMemberButton_Click(object sender, RoutedEventArgs e)
         {
-
+            MessageBox.Show("Chưa phát triển", "Thông báo");
         }
 
         private void editMemberButton_Click(object sender, RoutedEventArgs e)
         {
-
+            MessageBox.Show("Chưa phát triển", "Thông báo");
         }
 
         private void addExpenseButton_Click(object sender, RoutedEventArgs e)
@@ -257,12 +257,12 @@ namespace WeSplit.Screens
 
         private void editExpenseButton_Click(object sender, RoutedEventArgs e)
         {
-
+            MessageBox.Show("Chưa phát triển", "Thông báo");
         }
 
         private void removeExpenseButton_Click(object sender, RoutedEventArgs e)
         {
-
+            MessageBox.Show("Chưa phát triển", "Thông báo");
         }
 
         private void progressStatusButton_Click(object sender, RoutedEventArgs e)
