@@ -428,7 +428,6 @@ namespace WeSplit.DAO
             return result;
         }
 
-
         public static bool InsertExpense(string idTrip, Expense expenseEntered)
         {
             var result = true;
@@ -476,6 +475,32 @@ namespace WeSplit.DAO
                 string newJsonResult = Newtonsoft.Json.JsonConvert.SerializeObject(trips,
                                Newtonsoft.Json.Formatting.Indented);
                 File.WriteAllText(jsonFilePath, newJsonResult);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return result;
+        }
+        public static Expense GetExpenseById(string idTrip, string idExpense)
+        {
+            var result = new Expense();
+
+            string jsonFilePath = "./Data/trips.json";
+            var json = File.ReadAllText(jsonFilePath);
+
+            try
+            {
+                JArray trips = JArray.Parse(json);
+                var tripDetail = trips.FirstOrDefault(obj => obj["Id"].Value<String>() == idTrip);
+                JArray expensesArray = (JArray)tripDetail["Expenses"];
+
+                var expenseToGet = expensesArray.FirstOrDefault(obj => obj["Id"].Value<string>() == idExpense);
+                result.Id = expenseToGet["Id"].ToString();
+                result.Name = expenseToGet["Name"].ToString();
+                result.Cost = expenseToGet["Cost"].ToString();
+
             }
             catch (Exception)
             {

@@ -53,5 +53,10 @@ namespace WeSplit.Screens
             NewExpense.Cost = cost;
             DialogResult = true;
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.DataContext = NewExpense;
+        }
     }
 }

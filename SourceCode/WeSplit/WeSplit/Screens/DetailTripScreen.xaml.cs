@@ -310,7 +310,22 @@ namespace WeSplit.Screens
 
         private void editExpenseBtn_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            var idExpense = ((Image)sender).Uid;
+            var expenseCurrent = TripDAO.GetExpenseById(idTrip, idExpense);
 
+            var addExpenseDialog = new AddExpenseDialog();
+            addExpenseDialog.NewExpense = expenseCurrent;
+
+            if (addExpenseDialog.ShowDialog() == true)
+            {
+                var newExpense = addExpenseDialog.NewExpense;
+
+                TripDAO.RemoveExpense(idTrip, idExpense);
+                TripDAO.InsertExpense(idTrip, newExpense);
+                DisplayDetail();
+                DisplayCostChart();
+                MessageBox.Show("Đã cập nhật thành công!");
+            }
         }
 
         private void removeExpenseBtn_MouseDown(object sender, MouseButtonEventArgs e)

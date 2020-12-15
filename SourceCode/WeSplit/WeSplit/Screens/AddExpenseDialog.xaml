@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         Title="AddExpenseDialog" Height="350" Width="450"
         WindowStartupLocation="CenterScreen"
-        WindowStyle="None">
+        WindowStyle="None"
+        Loaded="Window_Loaded">
     <Window.Resources>
         <ImageBrush x:Key="CloseBtn_MouseOver" ImageSource="../Assets/Images/power-button_bl.png"/>
 
