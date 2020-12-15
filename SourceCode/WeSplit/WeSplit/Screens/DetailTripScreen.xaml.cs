@@ -173,7 +173,9 @@ namespace WeSplit.Screens
 
         private void finishButton_Click(object sender, RoutedEventArgs e)
         {
-
+            TripDAO.UpdateStatus(idTrip, "finish");
+            MessageBox.Show("Đã cập nhật tình trạng chuyến đi", "Thông báo");
+            Close();
         }
 
         private void showExpensesButton_Click(object sender, RoutedEventArgs e)

@@ -28,17 +28,17 @@ namespace WeSplit.DAO
                 string key = searchKey.Trim().ToLower();
                 if (key != "")
                 {
-                    trips = new JArray(trips.Where(trip => SearchHelper.ConvertToUnSign(trip["name"].ToString().ToLower()) == key));
+                    trips = new JArray(trips.Where(trip => SearchHelper.ConvertToUnSign(trip["Name"].ToString().ToLower()) == key));
                 }
 
                 if (statusFilter == StatusFilter.FINISH)
                 {
-                    trips = new JArray(trips.Where(trip => trip["status"].ToString() == "finish"));
+                    trips = new JArray(trips.Where(trip => trip["Status"].ToString() == "finish"));
                 }
 
                 if(statusFilter == StatusFilter.PROGRESS)
                 {
-                    trips = new JArray(trips.Where(trip => trip["status"].ToString() == "progress"));
+                    trips = new JArray(trips.Where(trip => trip["Status"].ToString() == "progress"));
                 }
 
                 int skipValue = pageCurrent == 1 ? 0 : (pageCurrent - 1) * perPage;
@@ -139,16 +139,16 @@ namespace WeSplit.DAO
                 string key = searchKey.Trim();
                 if(key != "")
                 {
-                    trips = new JArray(trips.Where(trip => trip["name"].ToString() == key));
+                    trips = new JArray(trips.Where(trip => trip["Name"].ToString() == key));
                 }
 
                 if (statusFilter == StatusFilter.FINISH)
                 {
-                    trips = new JArray(trips.Where(trip => trip["status"].ToString() == "finish"));
+                    trips = new JArray(trips.Where(trip => trip["Status"].ToString() == "finish"));
                 }
                 if (statusFilter == StatusFilter.PROGRESS)
                 {
-                    trips = new JArray(trips.Where(trip => trip["status"].ToString() == "progress"));
+                    trips = new JArray(trips.Where(trip => trip["Status"].ToString() == "progress"));
                 }
 
                 result = trips.Count();
@@ -278,6 +278,30 @@ namespace WeSplit.DAO
             }
 
             return null;
+        }
+
+        public static bool UpdateStatus(string idTrip, string newStatus)
+        {
+            var result = true;
+            string jsonFilePath = "./Data/trips.json";
+            var json = File.ReadAllText(jsonFilePath);
+
+            try
+            {
+                JArray trips = JArray.Parse(json);
+                var tripDetail = trips.FirstOrDefault(obj => obj["Id"].Value<String>() == idTrip);
+                tripDetail["Status"] = newStatus;
+
+                string newJsonResult = Newtonsoft.Json.JsonConvert.SerializeObject(trips,
+                               Newtonsoft.Json.Formatting.Indented);
+                File.WriteAllText(jsonFilePath, newJsonResult);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return result;
         }
 
         public static bool InsertPlaces(string idTrip, Place placeEntered)
