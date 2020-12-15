@@ -25,7 +25,7 @@ namespace WeSplit.Screens
         private const int ROW_PER_PAGE = 6;
         private StatusFilter statusFilter = StatusFilter.ALL;
         private string searchKey = "";
-        
+        private string modeSearch = "name_trip";
 
         public ListTripScreen()
         {
@@ -72,6 +72,7 @@ namespace WeSplit.Screens
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            modeSearch = "name_trip";
             HandlePagingInfoForTrips();
             DisplayProducts();
         }
@@ -245,7 +246,7 @@ namespace WeSplit.Screens
 
         void DisplayProducts()
         {
-            var fetchedTrips = TripDAO.GetTrips(tripsPaging.RowsPerPage, tripsPaging.CurrentPage, statusFilter, searchKey);
+            var fetchedTrips = TripDAO.GetTrips(tripsPaging.RowsPerPage, tripsPaging.CurrentPage, statusFilter, searchKey, modeSearch);
             tripsListView.ItemsSource = fetchedTrips;
         }
 
@@ -279,6 +280,11 @@ namespace WeSplit.Screens
 
             HandlePagingInfoForTrips();
             DisplayProducts();
+        }
+
+        private void modeSearchComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            modeSearch = ((ComboBoxItem)modeSearchComboBox.SelectedItem).Tag?.ToString();
         }
     }
 }

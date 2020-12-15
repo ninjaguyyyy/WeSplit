@@ -14,7 +14,7 @@ namespace WeSplit.DAO
     class TripDAO
     {
 
-        public static List<Trip> GetTrips(int perPage, int pageCurrent, StatusFilter statusFilter, string searchKey)
+        public static List<Trip> GetTrips(int perPage, int pageCurrent, StatusFilter statusFilter, string searchKey, string modeSearch)
         {
             var result = new List<Trip>();
 
@@ -28,7 +28,19 @@ namespace WeSplit.DAO
                 string key = searchKey.Trim().ToLower();
                 if (key != "")
                 {
-                    trips = new JArray(trips.Where(trip => SearchHelper.ConvertToUnSign(trip["Name"].ToString().ToLower()) == key));
+                    if(modeSearch == "name_trip")
+                    {
+                        trips = new JArray(trips.Where(trip => SearchHelper.ConvertToUnSign(trip["Name"].ToString().ToLower()) == key));
+                    }
+                    else
+                    {
+                        trips = new JArray(trips.Where(trip =>
+                        {
+                            JArray membersArray = (JArray)trip["Members"];
+                            var placeToSearch = membersArray.FirstOrDefault(obj => obj["Name"].Value<string>() == searchKey);
+                            return (placeToSearch == null)? false: true;
+                        }));
+                    }
                 }
 
                 if (statusFilter == StatusFilter.FINISH)
@@ -121,6 +133,8 @@ namespace WeSplit.DAO
             {
                 throw;
             }
+
+            
 
             return result;
         }
