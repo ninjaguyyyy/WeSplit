@@ -934,7 +934,8 @@
                                                 Margin="0, 5, 0, 5"
                                                 HorizontalAlignment="Right">
                                         <Button Padding="10, 0, 10, 0"
-                                                
+                                                Name="prevButton"
+                                                Click="prevButton_Click"
                                                 Style="{StaticResource ImageBorderButton}"
                                                 >
                                             <StackPanel Orientation="Horizontal">
@@ -949,6 +950,8 @@
                                         </Button>
                                         <Button Padding="10, 0, 10, 0"
                                                 Margin="5, 0, 5, 0"
+                                                Name="nextButton"
+                                                Click="nextButton_Click"
                                                 Style="{StaticResource ImageBorderButton}"
                                                 >
                                             <Image Width="8"
@@ -962,7 +965,10 @@
                                 </DockPanel>
                                 <StackPanel Grid.Row="1"
                                             Margin="10, 0, 10, 10">
-                                    <Image Source="../Assets/Images/Systems/1486389.jpg"/>
+                                    <Image Source="{Binding ImageToShow.NameImage, Converter={StaticResource converter}}"
+                                           VerticalAlignment="Center">
+                                        
+                                    </Image>
 
                                 </StackPanel>
                                 <DockPanel Grid.Row="2"
@@ -974,7 +980,19 @@
                                            VerticalAlignment="Bottom"
                                            Width="40"
                                            Height="30"
-                                           Source="../Assets/Images/upload_image_1.png"/>
+                                           Name="uploadImageBtn"
+                                           MouseDown="uploadImageBtn_MouseDown"
+                                           Source="../Assets/Images/upload_image_1.png">
+                                        <Image.Style>
+                                            <Style TargetType="{x:Type Image}">
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Cursor" Value="Hand" />
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Image.Style>
+                                    </Image>
                                 </DockPanel>
 
                             </Grid>

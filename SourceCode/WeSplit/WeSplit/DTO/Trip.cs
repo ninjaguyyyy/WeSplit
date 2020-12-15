@@ -22,5 +22,6 @@ namespace WeSplit.DTO
         public List<Place> Places { get; set; }
         public List<Member> Members { get; set; }
         public List<Expense> Expenses { get; set; }
+        public List<ImageTrip> Images { get; set; }
     }
 }

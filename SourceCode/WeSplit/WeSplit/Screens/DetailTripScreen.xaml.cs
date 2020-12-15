@@ -16,6 +16,7 @@ using WeSplit.DTO;
 using LiveCharts;
 using LiveCharts.Wpf;
 using LiveCharts.Helpers;
+using Microsoft.Win32;
 
 namespace WeSplit.Screens
 {
@@ -26,6 +27,8 @@ namespace WeSplit.Screens
     {
         private string idTrip;
         private Trip trip;
+        private int index_showImage = 0;
+        private int index_max;
 
         public DetailTripScreen(string id)
         {
@@ -34,29 +37,6 @@ namespace WeSplit.Screens
 
             PointLabel = chartPoint =>
                 string.Format("{0}", chartPoint.Y);
-
-
-            SeriesCollection = new SeriesCollection
-            {
-                new ColumnSeries
-                {
-                    Title = "2015",
-                    Values = new ChartValues<double> { 10, 50, 39, 50 }
-                }
-            };
-
-            //adding series will update and animate the chart automatically
-            SeriesCollection.Add(new ColumnSeries
-            {
-                Title = "2016",
-                Values = new ChartValues<double> { 11, 56, 42 }
-            });
-
-            //also adding values updates and animates the chart automatically
-            SeriesCollection[1].Values.Add(48d);
-
-            Labels = new[] { "Maria", "Susan", "Charles", "Frida" };
-            Formatter = value => value.ToString("N");
 
             
         }
@@ -111,6 +91,19 @@ namespace WeSplit.Screens
         private void DisplayDetail()
         {
             trip = TripDAO.GetById(idTrip);
+
+            ImageTrip imageToShow;
+            if (trip.Images.Count == 0)
+            {
+                imageToShow = new ImageTrip() { NameImage = "default_no_image.gif" };
+                index_max = 0;
+            }
+            else
+            {
+                imageToShow = trip.Images[index_showImage];
+                index_max = trip.Images.Count - 1;
+            }
+            
             this.DataContext = new
             {
                 Trip = new
@@ -124,7 +117,8 @@ namespace WeSplit.Screens
                     NameButtonStatus = trip.Status == "finish" ? "Đã kết thúc" : "Kết thúc"
                 },
                 PointLabel,
-                SeriesCollection
+                SeriesCollection,
+                ImageToShow = imageToShow
             };
 
             membersListView.ItemsSource = trip.Members;
@@ -335,6 +329,60 @@ namespace WeSplit.Screens
             DisplayDetail();
             DisplayCostChart();
             MessageBox.Show("Đã xóa chi phí thành công.", "Thông báo");
+        }
+
+        private void uploadImageBtn_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            OpenFileDialog op = new OpenFileDialog();
+            op.Title = "Chọn ảnh của chuyến đi";
+            op.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" +
+              "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" +
+              "Portable Network Graphic (*.png)|*.png";
+            op.Multiselect = true;
+            var o = op.ShowDialog();
+            if (o == true)
+            {
+                foreach (var name in op.FileNames)
+                {
+                    // Copy file
+                    var folder = AppDomain.CurrentDomain.BaseDirectory;
+
+                    string newNameFile = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(name);
+                    var targetPath = $"{folder}\\Assets\\Images\\Uploads\\";
+                    var destFile = System.IO.Path.Combine(targetPath, newNameFile);
+
+
+                    System.IO.File.Copy(name, destFile, true);
+
+                    // Insert A Image To Trip
+                    var newImage = new ImageTrip()
+                    {
+                        Id = Guid.NewGuid().ToString(),
+                        NameImage = newNameFile
+                    };
+                    TripDAO.InsertImage(idTrip, newImage);
+                    
+                }
+                MessageBox.Show("Đã tải lên thành công.", "Thông báo");
+            }
+        }
+
+        private void prevButton_Click(object sender, RoutedEventArgs e)
+        {
+            if(index_showImage != 0)
+            {
+                index_showImage--;
+                DisplayDetail();
+            }
+        }
+
+        private void nextButton_Click(object sender, RoutedEventArgs e)
+        {
+            if(index_showImage < index_max)
+            {
+                index_showImage++;
+                DisplayDetail();
+            }
         }
     }
 }

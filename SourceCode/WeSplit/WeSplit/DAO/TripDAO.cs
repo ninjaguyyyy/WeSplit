@@ -100,6 +100,20 @@ namespace WeSplit.DAO
                         tripObject.Places.Add(placeItem);
                     }
 
+                    tripObject.Images = new List<ImageTrip>();
+                    JArray Images = JArray.Parse(trip["Images"].ToString());
+                    foreach (var item in Images)
+                    {
+                        ImageTrip imageItem = new ImageTrip()
+                        {
+                            NameImage = item["NameImage"].ToString(),
+                            Id = item["Id"].ToString(),
+
+                        };
+                        tripObject.Images.Add(imageItem);
+                    }
+
+
                     result.Add(tripObject);
                 }
             }
@@ -239,6 +253,19 @@ namespace WeSplit.DAO
 
                             };
                             tripObject.Places.Add(placeItem);
+                        }
+
+                        tripObject.Images = new List<ImageTrip>();
+                        JArray Images = JArray.Parse(trip["Images"].ToString());
+                        foreach (var item in Images)
+                        {
+                            ImageTrip imageItem = new ImageTrip()
+                            {
+                                NameImage = item["NameImage"].ToString(),
+                                Id = item["Id"].ToString(),
+
+                            };
+                            tripObject.Images.Add(imageItem);
                         }
 
                         return tripObject;
@@ -501,6 +528,33 @@ namespace WeSplit.DAO
                 result.Name = expenseToGet["Name"].ToString();
                 result.Cost = expenseToGet["Cost"].ToString();
 
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return result;
+        }
+        public static bool InsertImage(string idTrip, ImageTrip imageEntered)
+        {
+            var result = true;
+            string jsonFilePath = "./Data/trips.json";
+            var json = File.ReadAllText(jsonFilePath);
+
+            try
+            {
+                JArray trips = JArray.Parse(json);
+                var tripDetail = trips.FirstOrDefault(obj => obj["Id"].Value<String>() == idTrip);
+                JArray imagesArrary = (JArray)tripDetail["Images"];
+
+                var newImageString = Newtonsoft.Json.JsonConvert.SerializeObject(imageEntered);
+                var newImageJObject = JObject.Parse(newImageString);
+                imagesArrary.Add(newImageJObject);
+
+                string newJsonResult = Newtonsoft.Json.JsonConvert.SerializeObject(trips,
+                               Newtonsoft.Json.Formatting.Indented);
+                File.WriteAllText(jsonFilePath, newJsonResult);
             }
             catch (Exception)
             {

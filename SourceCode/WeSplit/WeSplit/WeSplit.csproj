@@ -71,6 +71,7 @@
     <Compile Include="DAO\TripDAO.cs" />
     <Compile Include="DAO\TypeTripDAO.cs" />
     <Compile Include="DTO\Expense.cs" />
+    <Compile Include="DTO\ImageTrip.cs" />
     <Compile Include="DTO\Member.cs" />
     <Compile Include="DTO\Place.cs" />
     <Compile Include="DTO\SplashData.cs" />

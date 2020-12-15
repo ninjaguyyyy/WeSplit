@@ -35,6 +35,7 @@ namespace WeSplit.Screens
         private List<Member> members = new List<Member>();
         private List<Expense> expenses = new List<Expense>();
         private List<Place> places = new List<Place>();
+        private List<ImageTrip> images = new List<ImageTrip>();
 
         public AddTripScreen()
         {
@@ -113,7 +114,8 @@ namespace WeSplit.Screens
                 Transport = transportChosen.Id,
                 Members = members,
                 Expenses = expenses,
-                Places = places
+                Places = places,
+                Images = images
             };
 
             var resultAdded = TripDAO.InsertTrip(tripEntered);
