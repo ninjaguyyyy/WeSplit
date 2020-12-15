@@ -528,12 +528,38 @@
                                                         Orientation="Horizontal">
                                                     <Image Source="../Assets/Images/edit.png"
                                                        Width="15"
+                                                           Name="editExpenseBtn"
+                                                           Uid="{Binding Id}"
+                                                           MouseDown="editExpenseBtn_MouseDown" 
                                                        Margin="0, 0, 3, 0"
-                                                       Height="15"/>
+                                                       Height="15">
+                                                        <Image.Style>
+                                                            <Style TargetType="{x:Type Image}">
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Cursor" Value="Hand" />
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Image.Style>
+                                                    </Image>
                                                     <Image Source="../Assets/Images/rubbish-bin.png"
                                                        Width="15"
+                                                           Name="removeExpenseBtn"
+                                                           Uid="{Binding Id}"
+                                                           MouseDown="removeExpenseBtn_MouseDown"
                                                        Height="15"
-                                                       Margin="0, 0, 10, 0"/>
+                                                       Margin="0, 0, 10, 0">
+                                                        <Image.Style>
+                                                            <Style TargetType="{x:Type Image}">
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Cursor" Value="Hand" />
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Image.Style>
+                                                    </Image>
                                                     <TextBlock Text="{Binding Name}"
                                                            VerticalAlignment="Bottom"
                                                            FontFamily="../Assets/Fonts/Roboto-Bold.ttf #Roboto"/>

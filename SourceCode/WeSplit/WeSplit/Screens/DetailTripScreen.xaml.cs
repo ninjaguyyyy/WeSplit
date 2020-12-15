@@ -307,5 +307,19 @@ namespace WeSplit.Screens
                 DisplayCostChart();
             }
         }
+
+        private void editExpenseBtn_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void removeExpenseBtn_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var idExpense = ((Image)sender).Uid;
+            TripDAO.RemoveExpense(idTrip, idExpense);
+            DisplayDetail();
+            DisplayCostChart();
+            MessageBox.Show("Đã xóa chi phí thành công.", "Thông báo");
+        }
     }
 }

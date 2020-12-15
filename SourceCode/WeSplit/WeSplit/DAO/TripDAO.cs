@@ -456,5 +456,33 @@ namespace WeSplit.DAO
 
             return result;
         }
+
+        public static bool RemoveExpense(string idTrip, string idExpense)
+        {
+            var result = true;
+
+            string jsonFilePath = "./Data/trips.json";
+            var json = File.ReadAllText(jsonFilePath);
+
+            try
+            {
+                JArray trips = JArray.Parse(json);
+                var tripDetail = trips.FirstOrDefault(obj => obj["Id"].Value<String>() == idTrip);
+                JArray expensesArray = (JArray)tripDetail["Expenses"];
+
+                var expenseToDelete = expensesArray.FirstOrDefault(obj => obj["Id"].Value<string>() == idExpense);
+                expensesArray.Remove(expenseToDelete);
+
+                string newJsonResult = Newtonsoft.Json.JsonConvert.SerializeObject(trips,
+                               Newtonsoft.Json.Formatting.Indented);
+                File.WriteAllText(jsonFilePath, newJsonResult);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return result;
+        }
     }
 }
