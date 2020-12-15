@@ -84,13 +84,6 @@ namespace WeSplit.Screens
         }
 
 
-        private void LV_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            var listTripScreen = new ListTripScreen();
-            listTripScreen.Show();
-            this.Close();
-        }
-
         private void createButton_Click(object sender, RoutedEventArgs e)
         {
             string name = nameTextBox.Text;
@@ -277,6 +270,21 @@ namespace WeSplit.Screens
             statusChosen.Text = "Đã kết thúc";
         }
 
-        
+        private void settingScreen_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show("Chưa phát triển", "Thông báo");
+        }
+
+        private void infoScreen_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show("Chưa phát triển", "Thông báo");
+        }
+
+        private void listScreen_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            var listTripScreen = new ListTripScreen();
+            listTripScreen.Show();
+            this.Close();
+        }
     }
 }

@@ -286,5 +286,15 @@ namespace WeSplit.Screens
         {
             modeSearch = ((ComboBoxItem)modeSearchComboBox.SelectedItem).Tag?.ToString();
         }
+
+        private void settingScreen_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show("Chưa phát triển", "Thông báo");
+        }
+
+        private void infoScreen_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show("Chưa phát triển", "Thông báo");
+        }
     }
 }

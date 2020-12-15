@@ -1287,13 +1287,15 @@
 
                     <ListView  x:Name="LV"
                                    Background="Transparent"
-                               PreviewMouseLeftButtonUp="LV_PreviewMouseLeftButtonUp"
                                    BorderBrush="Transparent"
                                    ScrollViewer.HorizontalScrollBarVisibility="Disabled">
 
                         <!--// Home //-->
                         <ListViewItem HorizontalAlignment="Left"
-                                          Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter"
+                                          Margin="0,0,0,15" 
+                                      Name="listScreen"
+                                      PreviewMouseLeftButtonUp="listScreen_PreviewMouseLeftButtonUp"
+                                      MouseEnter="ListViewItem_MouseEnter"
                                           >
                             <StackPanel Orientation="Horizontal"
                                             Width="230">
@@ -1351,7 +1353,10 @@
                         <!--// Settings //-->
 
                         <ListViewItem HorizontalAlignment="Left"
-                                          Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter"
+                                          Margin="0,0,0,15" 
+                                      Name="settingScreen"
+                                      PreviewMouseLeftButtonUp="settingScreen_PreviewMouseLeftButtonUp"
+                                      MouseEnter="ListViewItem_MouseEnter"
                                           >
 
                             <StackPanel Orientation="Horizontal"
@@ -1382,7 +1387,10 @@
                         <!--// Info //-->
 
                         <ListViewItem HorizontalAlignment="Left"
-                                          Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter"
+                                          Margin="0,0,0,15" 
+                                      Name="infoScreen"
+                                      PreviewMouseLeftButtonUp="infoScreen_PreviewMouseLeftButtonUp"
+                                      MouseEnter="ListViewItem_MouseEnter"
                                           >
 
                             <StackPanel Orientation="Horizontal"
