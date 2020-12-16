@@ -50,12 +50,10 @@ We Split - Phần mềm Window phục vụ quản lý thu chi, thành viên, �
 **Không có.**
 ## 🎉 Các điểm đặc sắc
 **Không có.**
-## 💣 Các con đường bất hạnh
-**Không có.**
 ## 💌 Điểm đề nghị
 Số điểm đề nghị: **10** điểm
 ## 📌 Link Youtube demo
-Link: https://youtu.be/o_VBco37jHQ
+Link: https://youtu.be/Ux2ega7tzA8
 Note: Có thể kết thúc chuyến đi bằng cách click vào nút Kết thúc (Video demo em quên demo phần đó)
 ## 🔒 Quyền sử dụng Project
 Có thể share cho các khóa sau
