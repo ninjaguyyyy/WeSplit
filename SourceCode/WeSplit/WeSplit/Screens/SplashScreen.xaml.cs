@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +22,9 @@ namespace WeSplit.Screens
     /// </summary>
     public partial class SplashScreen : Window
     {
+        private System.Timers.Timer timer;
+        private int count = 0;
+        private int target = 5;
         private List<SplashData> splashData = new List<SplashData>();
         public SplashScreen()
         {
@@ -48,23 +52,65 @@ namespace WeSplit.Screens
             myBrush.ImageSource = image.Source;
 
             container.Background = myBrush;
-            
 
+            var isShowSplash = bool.Parse(ConfigurationManager.AppSettings["ShowSplashScreen"]);
+
+            if (isShowSplash == false)
+            {
+                var listTripScreen = new ListTripScreen();
+                listTripScreen.Show();
+
+                this.Close();
+            }
+            else
+            {
+                timer = new System.Timers.Timer();
+                timer.Elapsed += Timer_Elapsed;
+                timer.Interval = 1000;
+                timer.Start();
+            }
+
+            
         }
 
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Application.Current.Shutdown();
         }
 
         private void saveShowCheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
-
+            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            config.AppSettings.Settings["ShowSplashScreen"].Value = "true";
+            config.Save(ConfigurationSaveMode.Minimal);
         }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
+            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            config.AppSettings.Settings["ShowSplashScreen"].Value = "false";
+            config.Save(ConfigurationSaveMode.Minimal);
+        }
 
+        private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            count++;
+            if (count == target)
+            {
+                timer.Stop();
+                Dispatcher.Invoke(() =>
+                {
+                    var listTripScreen = new ListTripScreen();
+                    listTripScreen.Show();
+
+                    this.Close();
+                });
+            }
+
+            Dispatcher.Invoke(() =>
+            {
+                splashProgress.Value = count;
+            });
         }
     }
 }

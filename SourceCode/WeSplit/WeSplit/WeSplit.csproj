@@ -47,6 +47,7 @@
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -169,7 +170,9 @@
     <Resource Include="Assets\Fonts\Roboto-Regular.ttf" />
     <Resource Include="Assets\Fonts\Roboto-Thin.ttf" />
     <Resource Include="Assets\Fonts\Roboto-ThinItalic.ttf" />
-    <None Include="Data\splash-data.json" />
+    <None Include="Data\splash-data.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Data\transports.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
