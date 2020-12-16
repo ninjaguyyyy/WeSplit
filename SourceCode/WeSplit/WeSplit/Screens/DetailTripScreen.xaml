@@ -707,37 +707,25 @@
                                                                     VerticalAlignment="Top"
                                                        FontSize="12"
                                                        FontFamily="../Assets/Fonts/Roboto-Bold.ttf #Roboto"/>
-                                                        
                                                             <StackPanel Orientation="Horizontal"
                                                                         HorizontalAlignment="Right"
                                                                         DockPanel.Dock="Right">
+
                                                                 <TextBlock Text="{Binding Start}"
                                                                    HorizontalAlignment="Right"
                                                                    Margin="0, 3, 0, 0"
                                                                    FontSize="8"
                                                                    FontFamily="../Assets/Fonts/Roboto-Bold.ttf #Roboto"
                                                                    Foreground="#61B3FF" />
-                                                                <TextBlock Text=" - "
-                                                                   HorizontalAlignment="Right"
-                                                                   Margin="0, 3, 0, 0"
-                                                                   FontSize="8"
-                                                                   FontFamily="../Assets/Fonts/Roboto-Bold.ttf #Roboto"
-                                                                   Foreground="#61B3FF"/>
-                                                                <TextBlock Text="{Binding End}"
-                                                                   HorizontalAlignment="Right"
-                                                                   Margin="0, 3, 8, 0"
-                                                                   FontSize="8"
-                                                                   FontFamily="../Assets/Fonts/Roboto-Bold.ttf #Roboto"
-                                                                   Foreground="#61B3FF"/>
                                                             </StackPanel>
-                                                    </DockPanel>
+                                                        </DockPanel>
                                                     <TextBlock Grid.Row="1"
                                                                Foreground="#61B3FF"
                                                                FontSize="8"
                                                                FontFamily="../Assets/Fonts/Roboto-Bold.ttf #Roboto"
                                                                Text="{Binding Address}"
                                                     />
-                                                    <TextBlock Text="Ho Chi Minh City haittlerencultud political groups. Originally a trading port city of"
+                                                    <TextBlock Text="{Binding Description}"
                                                                FontSize="10"
                                                                Grid.Row="2"
                                                                TextWrapping="Wrap"
@@ -747,14 +735,15 @@
                                                     VerticalAlignment="Bottom">
                                                         <Image Source="../Assets/Images/calendar.png"
                                                    Width="14"/>
-                                                        <TextBlock Text="5"
-                                                       VerticalAlignment="Bottom"
-                                                       Margin="5, 0, 0, 0"
-                                                       FontSize="13"
-                                                       FontFamily="../Assets/Fonts/Roboto-Bold.ttf #Roboto"/>
-                                                        <TextBlock Text=" ngày"
-                                                       FontSize="10"/>
-                                                        <Image Source="../Assets/Images/settings.png"
+                                                            
+                                                                <TextBlock Text="{Binding End}"
+                                                                   HorizontalAlignment="Right"
+                                                                   Margin="5, 3, 8, 0"
+                                                                   FontSize="8"
+                                                                   FontFamily="../Assets/Fonts/Roboto-Bold.ttf #Roboto"
+                                                                   Foreground="#61B3FF"/>
+                                                            
+                                                            <Image Source="../Assets/Images/settings.png"
                                                    Width="14"
                                                    Margin="15, 0, 5, 0"/>
                                                         <TextBlock Text="Sửa"

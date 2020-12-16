@@ -17,6 +17,7 @@ using LiveCharts;
 using LiveCharts.Wpf;
 using LiveCharts.Helpers;
 using Microsoft.Win32;
+using System.Globalization;
 
 namespace WeSplit.Screens
 {
@@ -110,6 +111,8 @@ namespace WeSplit.Screens
             totalExpense = trip.Expenses.Sum(item => int.Parse(item.Cost));
             totalDonation = trip.Members.Sum(item => int.Parse(item.Donation));
 
+            CultureInfo provider = CultureInfo.InvariantCulture;
+
             this.DataContext = new
             {
                 Trip = new
@@ -120,7 +123,8 @@ namespace WeSplit.Screens
                     MainImage = trip.MainImage,
                     Transport = TransportDAO.GetById(trip.Transport),
                     Status = trip.Status == "finish" ? "False" : "True",
-                    NameButtonStatus = trip.Status == "finish" ? "Đã kết thúc" : "Kết thúc"
+                    NameButtonStatus = trip.Status == "finish" ? "Đã kết thúc" : "Kết thúc",
+                    TotalDate = "not dev"
                 },
                 PointLabel,
                 SeriesCollection,
