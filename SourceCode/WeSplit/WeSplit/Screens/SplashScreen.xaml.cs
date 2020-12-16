@@ -24,7 +24,7 @@ namespace WeSplit.Screens
     {
         private System.Timers.Timer timer;
         private int count = 0;
-        private int target = 5;
+        private int target = 10;
         private List<SplashData> splashData = new List<SplashData>();
         public SplashScreen()
         {

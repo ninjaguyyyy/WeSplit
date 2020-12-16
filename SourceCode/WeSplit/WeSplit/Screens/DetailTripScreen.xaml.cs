@@ -243,6 +243,7 @@ namespace WeSplit.Screens
             var idMember = ((Image)sender).Uid;
             TripDAO.RemoveMember(idTrip, idMember);
             DisplayDetail();
+            DisplayDonationChart();
             MessageBox.Show("Đã xóa thành viên thành công.", "Thông báo");
 
         }
@@ -386,6 +387,7 @@ namespace WeSplit.Screens
                     
                 }
                 MessageBox.Show("Đã tải lên thành công.", "Thông báo");
+                DisplayDetail();
             }
         }
 

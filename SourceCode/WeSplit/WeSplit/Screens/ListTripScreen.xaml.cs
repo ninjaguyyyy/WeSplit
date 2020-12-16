@@ -22,7 +22,7 @@ namespace WeSplit.Screens
     public partial class ListTripScreen : Window
     {
         private Paging tripsPaging;
-        private const int ROW_PER_PAGE = 6;
+        private const int ROW_PER_PAGE = 12;
         private StatusFilter statusFilter = StatusFilter.ALL;
         private string searchKey = "";
         private string modeSearch = "name_trip";
@@ -231,10 +231,10 @@ namespace WeSplit.Screens
             var nextListViewItem = new ListViewItem();
             nextListViewItem.Content = "next  ⏩";
             Thickness paddingForPrev = nextListViewItem.Padding;
-            paddingForNext.Left = 13;
-            paddingForNext.Right = 20;
-            paddingForNext.Top = 8;
-            paddingForNext.Bottom = 8;
+            paddingForPrev.Left = 13;
+            paddingForPrev.Right = 20;
+            paddingForPrev.Top = 8;
+            paddingForPrev.Bottom = 8;
             nextListViewItem.Padding = paddingForPrev;
             nextListViewItem.Focusable = false;
             nextListViewItem.Foreground = Brushes.White;
