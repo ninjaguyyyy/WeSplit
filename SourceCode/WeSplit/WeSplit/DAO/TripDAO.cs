@@ -25,7 +25,7 @@ namespace WeSplit.DAO
             {
                 JArray trips = JArray.Parse(json);
 
-                string key = searchKey.Trim().ToLower();
+                string key = SearchHelper.ConvertToUnSign(searchKey.Trim().ToLower());
                 if (key != "")
                 {
                     if(modeSearch == "name_trip")
@@ -37,7 +37,7 @@ namespace WeSplit.DAO
                         trips = new JArray(trips.Where(trip =>
                         {
                             JArray membersArray = (JArray)trip["Members"];
-                            var placeToSearch = membersArray.FirstOrDefault(obj => obj["Name"].Value<string>() == searchKey);
+                            var placeToSearch = membersArray.FirstOrDefault(obj => SearchHelper.ConvertToUnSign(obj["Name"].Value<string>().ToLower()) == key);
                             return (placeToSearch == null)? false: true;
                         }));
                     }
