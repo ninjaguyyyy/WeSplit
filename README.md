@@ -33,6 +33,7 @@ We Split - Phần mềm Window phục vụ quản lý thu chi, thành viên, �
     - Tìm kiếm theo tên thành viên
 4. **Chức năng Create Journey Screen**
     Tạo được chuyến đi với các thông tin:
+    
         - Tên
         - Thành viên
         - Khoản chi
