@@ -39,6 +39,7 @@ We Split - Phần mềm Window phục vụ quản lý thu chi, thành viên, �
         - Một số thông tin phụ khác
 5. **Chức năng Update Journey Screen**
     Cho phép cập nhật thông tin chuyến đi:
+    
         - Các thành viên
         - Các khoản thu
         - Các hình ảnh
