@@ -7,7 +7,7 @@ We Split - Phần mềm Window phục vụ quản lý thu chi, thành viên, �
     4. Create Journey Screen.
     5. Update Journey Screen.
 
-`Demo: `
+`Demo: ` https://www.youtube.com/watch?v=Ux2ega7tzA8
 ## 🤵 Thông tin nhóm thực hiện
 
 `Họ tên` Nguyễn Hữu Chí  
